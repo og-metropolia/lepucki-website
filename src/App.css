@@ -1,47 +1,36 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
   text-align: center;
+
+  /* height: 100%;c */
+
   --lepucki-orange: #e49217;
   --lepucki-black: #000;
   --lepucki-gray: #0f0f0f;
   --lepucki-white: #fff;
-
+  background-color: #0f0f0f;
 }
 
-@font-face {
+/*@font-face {
   font-family: ubuntu;
   src: url(./fonts/UbuntuCondensed-Regular.ttf);
-}
+}*/
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--lepucki-orange);
 }
 
 .login-text {
-  font-family: ubuntu;
-}
-
-label   {
-  display: block;
-  margin-top: 10px;
-}
-
-button{
-  margin-top: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .main-logo {
   width: 500px;
-}
-
-.login-input{
-  margin: 10px;
-
-}
-
-button[type="submit"]:hover{
-  background-color: var(--lepucki-orange);
-  color: var(--lepucki-black);
 }
