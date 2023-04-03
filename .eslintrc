@@ -9,6 +9,7 @@
   "overrides": [],
   "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": 2017,
     "ecmaFeatures": {
       "impliedStrict": true,
       "jsx": true
