@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import path from '../constants/path';
+import path from '../constants/routes.mjs';
 import './login.css';
 
 export default function Login() {

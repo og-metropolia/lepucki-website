@@ -1,10 +1,14 @@
 import React from 'react';
-import Navi from '../components/Navi';
+// import Navi from '../components/Navi';
+import LaundryBooking from '../components/LaundryBooking';
+
 
 export default function Pyykkitupa() {
   return (
     <>
-      <Navi />
+      {/* <Navi /> */}
+      {<LaundryBooking />}
+
       <main>
         <header>
           <h1 className="login-text">Tervetuloa pyykkitupaan</h1>
