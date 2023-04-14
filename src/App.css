@@ -1,22 +1,11 @@
 #root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
-  /* padding: 2rem; */
-  text-align: center;
-
-  /* height: 100%;c */
-
   --lepucki-orange: #e49217;
   --lepucki-black: #000;
   --lepucki-gray: #0f0f0f;
   --lepucki-white: #fff;
-  background-color: #0f0f0f;
+  background-color: var(--lepucki-gray);
+  color: var(--lepucki-white);
 }
-
-/*@font-face {
-  font-family: ubuntu;
-  src: url(./fonts/UbuntuCondensed-Regular.ttf);
-}*/
 
 h1,
 h2,
@@ -33,4 +22,8 @@ h6 {
 
 .main-logo {
   width: 500px;
+}
+
+#navbar {
+  padding-left: 1em;
 }

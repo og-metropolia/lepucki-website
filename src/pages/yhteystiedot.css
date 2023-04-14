@@ -1,0 +1,23 @@
+header {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: 1em;
+  text-align: center;
+}
+
+h3 {
+  text-decoration: underline;
+  margin-left: 1em;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  margin: 2em;
+  text-align: center;
+}
