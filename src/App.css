@@ -1,8 +1,6 @@
+@import url('./assets/colors.css');
+
 #root {
-  --lepucki-orange: #e49217;
-  --lepucki-black: #000;
-  --lepucki-gray: #0f0f0f;
-  --lepucki-white: #fff;
   background-color: var(--lepucki-gray);
   color: var(--lepucki-white);
 }
@@ -16,14 +14,6 @@ h6 {
   color: var(--lepucki-orange);
 }
 
-.login-text {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
 .main-logo {
   width: 500px;
-}
-
-#navbar {
-  padding-left: 1em;
 }

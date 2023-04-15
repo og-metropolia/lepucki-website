@@ -1,7 +1,7 @@
 import React from 'react';
 // import Navi from '../components/Navi';
 import LaundryBooking from '../components/LaundryBooking';
-
+import Gridi from '../components/Gristesti';
 
 export default function Pyykkitupa() {
   return (
@@ -15,6 +15,7 @@ export default function Pyykkitupa() {
           <p>Olet nyt pyykkituvassa.</p>
         </header>
       </main>
+      {<Gridi />}
     </>
   );
 }

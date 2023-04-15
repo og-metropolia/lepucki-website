@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './contact.css';
 
-function YhteydenottoFormi() {
+export default function YhteydenottoFormi() {
   const [nimi, setNimi] = useState('');
   const [email, setEmail] = useState('');
   const [viesti, setViesti] = useState('');
@@ -51,5 +51,3 @@ function YhteydenottoFormi() {
     </div>
   );
 }
-
-export default YhteydenottoFormi;

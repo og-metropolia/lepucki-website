@@ -13,8 +13,10 @@ okaisen li-elementin sisällä näytetään ilmoituksen tiedot, kuten otsikko, l
 
  */
 import React, { useState, useEffect } from 'react';
+import Announcement from './Announcement';
+import './AnnouncementBoard.css';
 
-function AnnouncementBoard() {
+export default function AnnouncementBoard() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [sender, setSender] = useState('');
@@ -23,11 +25,11 @@ function AnnouncementBoard() {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
+    // fetchAnnouncements(); // Poista kommentti kun REST_api backupservice käytössä
     const interval = setInterval(() => {
       setAnnouncements((announcements) =>
         announcements.filter(
-          (announcement) =>
-            new Date(announcement.expirationDate) > new Date()
+          (announcement) => new Date(announcement.expirationDate) > new Date()
         )
       );
     }, 1000);
@@ -35,11 +37,31 @@ function AnnouncementBoard() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSubmit = (event) => {
+  // Poista kommentti kun REST_api backupservice käytössä
+  // const fetchAnnouncements = async () => {
+  //   try {
+  //     const response = await fetch('/api/announcements');
+  //     const data = await response.json();
+  //     setAnnouncements(data);
+  //   } catch (error) {
+  //     console.error('Error fetching announcements:', error);
+  //   }
+  // };
+
+  const validateFields = () => {
+    if (!title || !description || !sender || !duration) {
+      alert(
+        'Täytä kaikki kentät: otsikko, teksti, lähettäjä ja voimassaoloaika.'
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!title || !description || !sender || !duration) {
-      alert('Täytä kaikki kentät: otsikko, teksti, lähettäjä ja voimassaoloaika.');
+    if (!validateFields()) {
       return;
     }
 
@@ -54,6 +76,27 @@ function AnnouncementBoard() {
       date: new Date().toLocaleDateString('fi-FI'),
       expirationDate,
     };
+
+    // Poista kommentti kun REST_api backupservice käytössä
+    // try {
+    //   const response = await fetch('/api/announcements', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(newAnnouncement),
+    //   });
+
+    //   if (response.ok) {
+    //     const savedAnnouncement = await response.json();
+    //     setAnnouncements([...announcements, savedAnnouncement]);
+    //   } else {
+    //     console.error('Error saving announcement:', response.statusText);
+    //   }
+    // } catch (error) {
+    //   console.error('Error saving announcement:', error);
+    // }
+
     setAnnouncements([...announcements, newAnnouncement]);
     setTitle('');
     setDescription('');
@@ -61,14 +104,8 @@ function AnnouncementBoard() {
     setDuration('');
   };
 
-  const getRemainingDays = (expirationDate) => {
-    const timeDifference = new Date(expirationDate) - new Date();
-    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-    return daysDifference > 0 ? daysDifference : 0;
-  };
-
   return (
-    <div>
+    <div className="announcement-board-container">
       <h2>Ilmoitustaulu</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -112,18 +149,9 @@ function AnnouncementBoard() {
       <h3>Ilmoitukset:</h3>
       <ul>
         {announcements.map((announcement) => (
-          <li key={announcement.id}>
-            <strong>{announcement.title}</strong> - {announcement.sender} -{' '}
-            {announcement.date}
-            <p>{announcement.description}</p>
-            <p>
-              Ilmoitus on voimassa vielä {getRemainingDays(announcement.expirationDate)} päivää
-            </p>
-          </li>
+          <Announcement key={announcement.id} announcement={announcement} />
         ))}
       </ul>
     </div>
   );
 }
-
-export default AnnouncementBoard;

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-function LaundryBooking() {
-  const [bookings, setBookings] = useState([
+export default function LaundryBooking() {
+  const [bookings, setBookings] = useState([]);
 
-  ]);
-
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [apartmentNumber, setApartmentNumber] = useState('');
 
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   const handleTimeChange = (event) => {
@@ -27,8 +27,11 @@ function LaundryBooking() {
       return;
     }
 
+    const formattedDate = selectedDate.toLocaleDateString('fi-FI');
+
     const existingBooking = bookings.find(
-      (booking) => booking.date === selectedDate && booking.time === selectedTime
+      (booking) =>
+        booking.date === formattedDate && booking.time === selectedTime
     );
 
     if (existingBooking && existingBooking.reserved) {
@@ -39,13 +42,13 @@ function LaundryBooking() {
     const newBooking = {
       id: bookings.length + 1,
       time: selectedTime,
-      date: selectedDate,
+      date: formattedDate,
       reserved: true,
       apartmentNumber: parseInt(apartmentNumber),
     };
 
     setBookings([...bookings, newBooking]);
-    setSelectedDate('');
+    setSelectedDate(null);
     setSelectedTime('');
     setApartmentNumber('');
   };
@@ -59,13 +62,18 @@ function LaundryBooking() {
     updatedBookings[index] = updatedBooking;
     setBookings(updatedBookings);
   };
+
   return (
     <div>
       <h2>Pyykkituvan varausjärjestelmä</h2>
       <form>
         <label>
           Päivämäärä:
-          <input type="date" value={selectedDate} onChange={handleDateChange} />
+          <DatePicker
+            dateFormat="dd.MM.yyyy"
+            selected={selectedDate}
+            onChange={handleDateChange}
+          />
         </label>
         <label>
           Aika:
@@ -99,7 +107,8 @@ function LaundryBooking() {
           .filter((booking) => booking.reserved === false)
           .map((booking) => (
             <li key={booking.id}>
-              {booking.date} klo {booking.time} - Asunto {booking.apartmentNumber}
+              {booking.date} klo {booking.time} - Asunto{' '}
+              {booking.apartmentNumber}
               <button onClick={() => handleCancel(booking.id)}>Peruuta</button>
             </li>
           ))}
@@ -110,7 +119,8 @@ function LaundryBooking() {
           .filter((booking) => booking.reserved === true)
           .map((booking) => (
             <li key={booking.id}>
-              {booking.date} klo {booking.time} - Asunto {booking.apartmentNumber}
+              {booking.date} klo {booking.time} - Asunto{' '}
+              {booking.apartmentNumber}
               <button onClick={() => handleCancel(booking.id)}>Peruuta</button>
             </li>
           ))}
@@ -118,4 +128,3 @@ function LaundryBooking() {
     </div>
   );
 }
-export default LaundryBooking;

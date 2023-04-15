@@ -1,6 +1,6 @@
 .footer {
   background-color: #3b4043;
-  color: #ffffff;
+  color: var(--lepucki-white);
   padding: 5px;
   text-align: center;
   position: fixed;

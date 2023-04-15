@@ -11,7 +11,7 @@ export default function Yhteystiedot() {
           <h1 className="login-text">Yhteystiedot</h1>
         </header>
         <People />
-        {<Contact />}
+        <Contact />
       </main>
     </>
   );
@@ -21,7 +21,7 @@ function People() {
   return (
     <div>
       <h3>Hallitus</h3>
-      <ul>
+      <ul id="hallitusUl">
         {hallitus.map((member) => (
           <li key={member.id}>
             <h4>{member.name}</h4>
@@ -31,24 +31,28 @@ function People() {
           </li>
         ))}
       </ul>
-      <h3>Isännöitsijä</h3>
-      <ul>
-        <li>
-          <p>{isannointi.name}</p>
-          <p>{isannointi.address}</p>
-          <p>{isannointi.email}</p>
-          <p>{isannointi.phone}</p>
-        </li>
-      </ul>
-      <h3>Huolto</h3>
-      <ul>
-        <li>
-          <p>{huolto.name}</p>
-          <p>{huolto.address}</p>
-          <p>{huolto.email}</p>
-          <p>{huolto.phone}</p>
-        </li>
-      </ul>
+      <div id="isannoitsija">
+        <h3>Isännöitsijä</h3>
+        <ul>
+          <li>
+            <p>{isannointi.name}</p>
+            <p>{isannointi.address}</p>
+            <p>{isannointi.email}</p>
+            <p>{isannointi.phone}</p>
+          </li>
+        </ul>
+      </div>
+      <div id="huolto">
+        <h3>Huolto</h3>
+        <ul>
+          <li>
+            <p>{huolto.name}</p>
+            <p>{huolto.address}</p>
+            <p>{huolto.email}</p>
+            <p>{huolto.phone}</p>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
