@@ -7,17 +7,21 @@ header {
 
 h3 {
   text-decoration: underline;
-  margin-left: 1em;
   text-align: center;
 }
 
 ul {
   list-style: none;
   text-align: center;
+  padding-left: 0;
 }
 
 li {
   display: inline-block;
   margin: 2em;
   text-align: center;
+}
+
+#hallitusUl {
+  margin-left: -5em;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import path from '../constants/routes.mjs';
+import './navi.css';
 
 export default function Navi() {
   return (
