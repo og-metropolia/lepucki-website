@@ -32,27 +32,40 @@ export default function Gridi() {
 
 function kellonAika() {
   const aikavali = [];
-  const alkuaika = 7.0;
-  const loppuaika = 10.0;
+  let alkuaika = 4.0;
+  let loppuaika = 7.0;
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 1; i < 6; i++) {
+    alkuaika += 3;
+    loppuaika += 3;
     const verti = (
-      <div className="box">
-        {alkuaika} - {loppuaika}
-      </div>
+      <button className="kellonaikaButton">
+        {alkuaika.toFixed(2)} - {loppuaika.toFixed(2)}
+      </button>
     );
     aikavali.push(verti);
 
-    for (let j = 0; j < 7; j++) {
-      alkuaika + 3;
-      loppuaika + 3;
+    for (let j = 1; j < 7; j++) {
       const hori = (
-        <div className="box">
-          {alkuaika} - {loppuaika}
-        </div>
+        <button className="kellonaikaButton">
+          {alkuaika.toFixed(2)} - {loppuaika.toFixed(2)}
+        </button>
       );
       aikavali.push(hori);
     }
   }
   return aikavali;
 }
+
+const napit = document.querySelectorAll('.kellonaikaButton');
+
+napit.forEach((nappi) => {
+  nappi.addEventListener('click', () => {
+    nappi.classList.toggle('valittu');
+
+    const valitutNapit = document.querySelectorAll('.kellonaikaButton.valittu');
+    valitutNapit.forEach((valittuNappi) => {
+      valittuNappi.classList.add('valittu');
+    });
+  });
+});

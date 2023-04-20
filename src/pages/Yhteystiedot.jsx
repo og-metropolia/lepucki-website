@@ -20,8 +20,8 @@ export default function Yhteystiedot() {
 function People() {
   return (
     <div>
-      <h3>Hallitus</h3>
-      <ul id="hallitusUl">
+      <ul className="yhteystietoHeader">
+        <h3>Hallitus</h3>
         {hallitus.map((member) => (
           <li key={member.id}>
             <h4>{member.name}</h4>
@@ -31,7 +31,7 @@ function People() {
           </li>
         ))}
       </ul>
-      <div id="isannoitsija">
+      <div className="yhteystietoHeader">
         <h3>Isännöitsijä</h3>
         <ul>
           <li>
@@ -42,7 +42,7 @@ function People() {
           </li>
         </ul>
       </div>
-      <div id="huolto">
+      <div className="yhteystietoHeader">
         <h3>Huolto</h3>
         <ul>
           <li>

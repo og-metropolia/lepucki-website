@@ -4,8 +4,8 @@ body {
 
 .wrapper {
   display: grid;
-  grid-template-columns:150px 150px 150px 150px 150px 150px 150px;
-  grid-template-rows: 100px 100px 100px 100px 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px;
   grid-gap: 10px;
   color: #444;
   text-align: center;
@@ -14,12 +14,22 @@ body {
 
 .box {
   background-color: #444;
-  color: #fff;
+  color: var(--lepucki-orange);
   border-radius: 5px;
-  padding: 20px;
-  font-size: 100%;
+  padding-top: 10px;
+  font-size: 80%;
 }
 
 #vkpaivat {
   text-decoration: underline;
+}
+
+.kellonaikaButton {
+  background-color: #33cc33;
+  font-size: 75%;
+  border-radius: 5px;
+}
+
+.valittu {
+  background-color: #ff5050;
 }
