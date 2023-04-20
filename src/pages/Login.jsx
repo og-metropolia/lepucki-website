@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import path from '../constants/routes.mjs';
+import Register from '../components/Register.jsx';
 import './login.css';
 
 export default function Login() {
@@ -16,6 +18,29 @@ export default function Login() {
     } else {
       setValid(true);
     }
+  };
+
+  const openRegisterWindow = () => {
+    const registerWindow = window.open('', '_blank', 'width=500,height=600');
+    registerWindow.document.write(
+      '<html><head><title>Rekisteröidy</title></head><body>'
+    );
+    registerWindow.document.write('<div id="register-root"></div>');
+    registerWindow.document.write('</body></html>');
+    registerWindow.document.close();
+
+    setTimeout(() => {
+      ReactDOM.render(
+        <Register onRegisterSuccess={handleRegisterSuccess} />,
+        registerWindow.document.getElementById('register-root')
+      );
+    }, 0);
+  };
+
+  const handleRegisterSuccess = () => {
+    alert(
+      'Rekisteröityminen onnistui! Voit nyt sulkea ikkunan ja kirjautua sisään pääsivulta.'
+    );
   };
 
   return (
@@ -46,6 +71,9 @@ export default function Login() {
           Väärä käyttäjänimi tai salasana, ole yhteydessä sivun ylläpitäjään
         </p>
       )}
+
+      {/* Lisää Luo käyttäjä -nappi */}
+      <button onClick={openRegisterWindow}>Luo käyttäjä</button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 export default Object.freeze({
   login: '/kirjaudu',
   home: '/koti',
-  sauna: '/sivut/sauna',
-  laundry: '/sivut/pyykkitapa',
-  contact: '/sivut/yhteystiedot',
+  sauna: '/sauna',
+  laundry: '/pyykkitapa',
+  contact: '/yhteystiedot',
 });

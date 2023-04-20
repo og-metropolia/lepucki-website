@@ -1,17 +1,3 @@
-/* Tämä koodi on React-komponentti nimeltä "AnnouncementBoard". Se on yksinkertainen ilmoitustaulu-sovellus,
-jossa käyttäjät voivat lisätä uusia ilmoituksia. Sovellus tallentaa jokaisen ilmoituksen otsikon, kuvauksen, lähettäjän ja päivämäärän.
-Lisäksi sovellus näyttää kaikki tallennetut ilmoitukset luettelossa.
-
-Komponentin tila muuttuu käyttäjän syöttämän tiedon perusteella.
-Announcements-taulukko tallentaa kaikki ilmoitukset, kun taas title, description ja sender ovat muuttujia, jotka tallentavat käyttäjän syöttämät tiedot.
-
-handleSubmit-funktio käsittelee lomakkeen lähetyksen, luo uuden ilmoituksen-objektin ja lisää sen announcements-taulukkoon. Sen jälkeen se nollaa syötteet ja näyttää päivitetyt ilmoitukset.
-
-Renderöinnissä, komponentti sisältää otsikon "Ilmoitustaulu" ja lomake, jonka avulla käyttäjät voivat lisätä uusia ilmoituksia.
-Ilmoitusten luettelo näytetään alapuolella käyttämällä map-funktiota, joka käy läpi jokaisen ilmoituksen announcements-taulukossa ja luo uuden li-elementin jokaiselle ilmoitukselle.
-okaisen li-elementin sisällä näytetään ilmoituksen tiedot, kuten otsikko, lähettäjä ja päivämäärä.
-
- */
 import React, { useState, useEffect } from 'react';
 import Announcement from './Announcement';
 import './AnnouncementBoard.css';

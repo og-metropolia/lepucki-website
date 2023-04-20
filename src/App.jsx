@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import path from './constants/routes.mjs';
 
 // components
-import Login from './components/Login';
+import Login from './pages/Login';
 import Navi from './components/Navi';
 import Footer from './components/Footer';
 
@@ -28,7 +28,6 @@ export default function App() {
         </Route>
         <Route path={path.login}>
           <Login />
-          set
         </Route>
         <Route path={path.sauna}>
           <Sauna />
