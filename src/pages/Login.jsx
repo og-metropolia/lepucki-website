@@ -5,18 +5,41 @@ import path from '../constants/routes.mjs';
 import Register from '../components/Register.jsx';
 import './login.css';
 
-export default function Login() {
+export default function Login(props) {
+  const { setLogged } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setValid] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username === 'admin' && password === 'admin') {
-      history.push(path.home);
-    } else {
-      setValid(true);
+
+    const inputUsername = event.target[0].value;
+    const inputPassword = event.target[1].value;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/${inputUsername}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (inputUsername === data.username && inputPassword === data.password) {
+        history.push(path.home);
+        setLogged(true);
+      } else {
+        setValid(true);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 

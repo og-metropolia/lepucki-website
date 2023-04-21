@@ -1,0 +1,36 @@
+@import url('../assets/colors.css');
+
+body {
+  padding: 0;
+}
+
+.frontpage-image {
+  width: 50%;
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.etusivu-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.etusivu-content {
+  width: 50%;
+  margin: 20px;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 50px auto 0;
+  text-align: center;
+}
+
+h2 {
+  color: var(--lepucki-orange);
+}

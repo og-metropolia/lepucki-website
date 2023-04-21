@@ -24,13 +24,13 @@ export default function Footer() {
         <div className="footer-col-3">
           <h4>Linkit</h4>
           <p>
-            <a href="saannot.pdf">Säännöt</a>
+            <a href="https://tauno.link/nvr">Säännöt</a>
           </p>
           <p>
-            <a href="ohjeet.pdf">Ohjeet</a>
+            <a href="https://tauno.link/nvr">Ohjeet</a>
           </p>
           <p>
-            <a href="tietosuojakaytanto.pdf">Tietosuojakäytäntö</a>
+            <a href="https://tauno.link/nvr">Tietosuojakäytäntö</a>
           </p>
         </div>
       </div>
