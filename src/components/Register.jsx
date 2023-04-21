@@ -17,8 +17,8 @@ export default function Register({ onRegisterSuccess }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username,
-          password,
+          username: username,
+          password: password,
           apartment_number: apartmentNumber,
         }),
       });
@@ -34,6 +34,7 @@ export default function Register({ onRegisterSuccess }) {
       }
     } catch (err) {
       setMessage(`Rekisteröinti epäonnistui: ${err.message}`);
+      // setMessage(`${username} ${password} ${apartmentNumber}`);
     }
   };
 

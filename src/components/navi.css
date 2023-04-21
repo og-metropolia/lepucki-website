@@ -1,3 +1,53 @@
+@import url('../assets/colors.css');
+
 #navbar {
   padding-left: 1em;
+  color: var(--lepucki-light-white);
+  background-color: var(--lepucki-light-gray);
+}
+
+#nav-brand {
+  color: var(--lepucki-orange);
+}
+
+.btn-nav {
+  text-align: center;
+  padding: 4px 8px;
+}
+
+.btn-nav a {
+  color: var(--lepucki-white);
+}
+
+.btn-nav a:hover {
+  color: var(--lepucki-orange);
+}
+
+.btn-login {
+  background-color: var(--lepucki-orange);
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px var(--lepucki-orange);
+  transition: background-color 0.3s ease-in-out;
+  text-align: center;
+}
+
+.btn-login a {
+  color: var(--lepucki-white);
+}
+
+.nav-login-container {
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.btn-login:hover,
+.btn-login:active {
+  background-color: var(--lepucki-gray);
+  box-shadow: 0 0 0 2px var(--lepucki-orange);
+  cursor: pointer;
+}
+
+.btn-login:hover a,
+.btn-login:active a {
+  color: var(--lepucki-orange);
 }

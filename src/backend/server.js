@@ -1,11 +1,15 @@
+import cors from 'cors';
 import express from 'express';
 import mysql from 'mysql';
 // import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 
 dotenv.config(); // loads env vars
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 const port = process.env.SERVER_PORT || 3000;
 const api_prefix = '/api';
 
@@ -43,6 +47,8 @@ function getRequest(endpoint, tableName) {
 
 //routes
 app.post('/api/users/create', async (req, res) => {
+  // console.log(`req.body : ${req.body}`);
+  // console.log(`res.res : ${res.res}`);
   const { username, password, apartment_number } = req.body;
 
   try {
@@ -55,7 +61,7 @@ app.post('/api/users/create', async (req, res) => {
           return res.status(400).send();
         }
         return res
-          .status(201)
+          .status(200)
           .json({ message: 'New user created successfully!' });
       }
     );
@@ -65,10 +71,48 @@ app.post('/api/users/create', async (req, res) => {
   }
 });
 
+function loginCheck() {
+  app.get(`${api_prefix}/users/:username`, async (req, res) => {
+    const username = req.params.username;
+
+    conn.query(
+      'SELECT * FROM users WHERE username = ?',
+      [username],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]); // palauttaa vain yhden käyttäjän
+      }
+    );
+  });
+}
+//   try {
+//     conn.query(
+//       `SELECT * FROM users WHERE username = ?`,
+//       [username],
+//       (err, results) => {
+//         if (err) {
+//           console.log(err);
+//           return res.status(400).send();
+//         }
+//         res.status(200).json(results);
+//       }
+//     );
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send();
+//   }
+// });
+// }
+
 getRequest('users', 'users');
 getRequest('announcements', 'announcements');
 getRequest('laundry', 'laundry');
 getRequest('sauna', 'sauna');
+
+loginCheck();
 
 // postRequest('users', 'users');
 // postRequest('announcements', 'announcements');
