@@ -4,6 +4,8 @@ import mysql from 'mysql';
 // import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import { endpoints } from '../constants/api.mjs';
+import tables from '../constants/tables.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -11,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const port = process.env.SERVER_PORT || 3000;
-const api_prefix = '/api';
+const apiPrefix = '/api';
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -29,7 +31,7 @@ conn.connect((err) => {
 });
 
 function getRequest(endpoint, tableName) {
-  app.get(`${api_prefix}/${endpoint}/`, async (req, res) => {
+  app.get(`${apiPrefix}/${endpoint}/`, async (req, res) => {
     try {
       conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
         if (err) {
@@ -45,58 +47,91 @@ function getRequest(endpoint, tableName) {
   });
 }
 
-app.post('/api/users', async (req, res) => {
-  const { username, password, apartment_number } = req.body;
-
+// EXAMPLE: addRow(res, 'users', 'username, password, apartment_number', ['user123', 'foobar', 42]);
+function addRow(response, tableName, fieldNames, fields) {
   try {
+    const placeholders = Array.from({ length: fields.length }, () => '?').join(
+      ', '
+    );
     conn.query(
-      'INSERT INTO users (username, password, apartment_number) VALUES (?, ?, ?)',
-      [username, password, apartment_number],
+      `INSERT INTO ${tableName} (${fieldNames}) VALUES (${placeholders})`,
+      fields,
       (err) => {
         if (err) {
           console.log('Error while inserting a user into the database', err);
-          return res.status(400).send();
+          return response.status(400).send();
         }
-        return res
+        return response
           .status(200)
-          .json({ message: 'New user created successfully!' });
+          .json({ message: 'New row created successfully!' });
       }
     );
   } catch (err) {
     console.log(err);
-    return res.status(500).send();
+    return response.status(500).send();
   }
-});
-
-function loginCheck() {
-  app.get(`${api_prefix}/users/:username`, async (req, res) => {
-    const username = req.params.username;
-
-    conn.query(
-      'SELECT * FROM users WHERE username = ?',
-      [username],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
-  });
 }
 
-getRequest('users', 'users');
-getRequest('announcements', 'announcements');
-getRequest('laundry', 'laundry');
-getRequest('sauna', 'sauna');
+app.post(`${apiPrefix}/${endpoints.users}`, async (req, res) => {
+  const { username, password, apartment_number } = req.body;
+  return addRow(res, 'users', 'username, password, apartment_number', [
+    username,
+    password,
+    apartment_number,
+  ]);
+});
 
-loginCheck();
+app.post(`${apiPrefix}/${endpoints.announcements}`, async (req, res) => {
+  const { title, content, apartment_number } = req.body;
+  return addRow(res, 'announcements', 'title, content, apartment_number', [
+    title,
+    content,
+    apartment_number,
+  ]);
+});
 
-// postRequest('users', 'users');
-// postRequest('announcements', 'announcements');
-// postRequest('laundry', 'laundry');
-// postRequest('sauna', 'sauna');
+app.post(`${apiPrefix}/${endpoints.laundry}`, async (req, res) => {
+  const { apartment_number, starting_at, ending_at } = req.body;
+  return addRow(res, 'laundry', 'apartment_number, starting_at, ending_at', [
+    apartment_number,
+    starting_at,
+    ending_at,
+  ]);
+});
+
+app.post(`${apiPrefix}/${endpoints.sauna}`, async (req, res) => {
+  const { apartment_number, starting_at, ending_at } = req.body;
+  return addRow(res, 'sauna', 'apartment_number, starting_at, ending_at', [
+    apartment_number,
+    starting_at,
+    ending_at,
+  ]);
+});
+
+app.get(`${apiPrefix}/${endpoints.users}/:username`, async (req, res) => {
+  const username = req.params.username;
+
+  conn.query(
+    'SELECT * FROM users WHERE username = ?',
+    [username],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
+      }
+      res.status(200).json(results[0]);
+    }
+  );
+});
+
+getRequest(endpoints.users, tables.users);
+getRequest(endpoints.announcements, tables.announcements);
+getRequest(endpoints.laundry, tables.laundry);
+getRequest(endpoints.sauna, tables.sauna);
+
+// postRequest(endpoints.announcements, tables.announcements);
+// postRequest(endpoints.laundry, tables.laundry);
+// postRequest(endpoints.sauna, tables.sauna);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

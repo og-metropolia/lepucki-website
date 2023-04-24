@@ -1,13 +1,207 @@
-## API Endpoints
+# Lepucki
 
-BASE_URL = localhost:3000/api/
+* [Local Development](#local-development)
+* [Tech and Tools](#tech-and-tools)
+* [REST API](#rest-api)
+  * [Users](#users)
+    * [GET users/](#get-users)
+    * [GET users/{username}](#get-usersusername)
+    * [POST users/](#post-users)
+  * [Announcements](#announcements)
+    * [GET announcements/](#get-announcements)
+  * [Laundry](#laundry)
+    * [GET laundry/](#get-laundry)
+  * [Sauna](#sauna)
+    * [GET sauna/](#get-sauna)
 
-### GET
 
-- GET /users/
-- GET /announcements/
-- GET /laundry/
-- GET /sauna/
+## Local Development
+```bash
+npm install
+npm start
+```
+
+<!-- TODO: image of website -->
+
+* http://localhost:5173 for React website
+* http://localhost:3000 for REST API
+
+## Tech and Tools
+* React
+* Express
+* MySQL
+* Vite
+* Eslint
+* Prettier
+* Jest
+* JSDoc
+
+## REST API
+
+BASE_URL = http://localhost:3000/api/
+
+### Users
+
+#### GET users/
+
+Example Request
+```bash
+curl http://localhost:3000/api/users/
+```
+
+Example Response
+```json
+[
+  {
+    "id": 1,
+    "username": "user",
+    "password": "password",
+    "apartment_number": 1234,
+    "created_at": "2023-04-20T09:31:24.000Z"
+  },
+  {
+    "id": 2,
+    "username": "user123",
+    "password": "foobar",
+    "apartment_number": 42,
+    "created_at": "2023-04-21T14:30:56.000Z"
+  },
+  {
+    "id": 4,
+    "username": "testi12",
+    "password": "testi12",
+    "apartment_number": 12,
+    "created_at": "2023-04-21T15:23:45.000Z"
+  },
+  {
+    "id": 42,
+    "username": "janedoe",
+    "password": "foobar",
+    "apartment_number": 123,
+    "created_at": "2023-04-24T10:11:21.000Z"
+  }
+]
+```
+
+#### GET users/{username}
+
+Example Request
+```bash
+curl http://localhost:3000/api/users/janedoe
+```
+
+Example Response
+```json
+{
+  "id": 42,
+  "username": "janedoe",
+  "password": "foobar",
+  "apartment_number": 123,
+  "created_at": "2023-04-24T13:11:21.000Z"
+}
+```
+
+#### POST users/
+
+Example Request Body
+```json
+{
+  "username": "janedoe",
+  "password": "foobar",
+  "apartment_number": 42
+}
+```
+
+Example Response
+```json
+{
+  "message": "New row created successfully!"
+}
+```
+
+### Announcements
+#### GET announcements/
+
+Example Request
+```bash
+curl http://localhost:3000/api/announcements/
+```
+
+Example Response
+```json
+[
+  {
+    "id":1,
+    "title":"Announcement One",
+    "content":"This is a test announcement.",
+    "apartment_number":1234,
+    "created_at":"2023-04-20T09:33:35.000Z",
+    "expiration_at":"2023-05-31T21:00:00.000Z"
+  },
+  {
+    "id":2,
+    "title":"Another Announcement",
+    "content":"content content content content content content content content content","apartment_number":598,
+    "created_at":"2023-04-24T12:12:46.000Z",
+    "expiration_at":"2023-04-24T12:13:46.000Z"
+  }
+]
+```
+
+### Laundry
+#### GET laundry/
+
+Example Request
+```bash
+curl http://localhost:3000/api/laundry/
+```
+
+Example Response
+```json
+[
+  {
+    "id":1,
+    "apartment_number":345,
+    "starting_at":"2023-04-24T09:15:14.000Z",
+    "ending_at":"2023-04-24T09:15:14.000Z"
+  },
+  {
+    "id":2,
+    "apartment_number":100,
+    "starting_at":"2023-04-24T09:15:14.000Z",
+    "ending_at":"2023-04-24T09:15:14.000Z"
+  }
+]
+```
+
+### Sauna
+#### GET sauna/
+
+Example Request
+```bash
+curl http://localhost:3000/api/sauna/
+```
+
+Example Response
+```json
+[
+  {
+    "id":1,
+    "apartment_number":598,
+    "starting_at":"2023-04-24T09:15:14.000Z",
+    "ending_at":"2023-04-24T09:15:14.000Z"
+  },
+  {
+    "id":2,
+    "apartment_number":234,
+    "starting_at":"2023-04-24T09:10:15.000Z",
+    "ending_at":"2023-04-24T09:11:14.000Z"
+  }
+]
+```
+
+
+
 
 <!-- ### POST
 
@@ -15,3 +209,13 @@ BASE_URL = localhost:3000/api/
 - POST /announcements/
 - POST /laundry/
 - POST /sauna/ -->
+
+
+
+<!-- POST landry/sauna timestamp format: "2023-04-24T12:15:14" -->
+
+
+<!-- GET
+POST
+PUT, PATCH
+DELETE -->
