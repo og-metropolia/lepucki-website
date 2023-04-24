@@ -22,6 +22,12 @@ body {
 
 #vkpaivat {
   text-decoration: underline;
+  margin: 0;
+}
+
+#paivamaara {
+  text-decoration: none;
+  color: aliceblue;
 }
 
 .kellonaikaButton {
@@ -32,4 +38,6 @@ body {
 
 .valittu {
   background-color: #ff5050;
+  font-size: 75%;
+  border-radius: 5px;
 }
