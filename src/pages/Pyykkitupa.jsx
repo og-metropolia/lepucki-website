@@ -16,6 +16,7 @@ export default function Pyykkitupa() {
         </header>
       </main>
       {<Gridi />}
+      <button>Varaa-aika</button>
     </>
   );
 }
