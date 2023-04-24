@@ -45,10 +45,7 @@ function getRequest(endpoint, tableName) {
   });
 }
 
-//routes
-app.post('/api/users/create', async (req, res) => {
-  // console.log(`req.body : ${req.body}`);
-  // console.log(`res.res : ${res.res}`);
+app.post('/api/users', async (req, res) => {
   const { username, password, apartment_number } = req.body;
 
   try {
@@ -83,29 +80,11 @@ function loginCheck() {
           console.log(err);
           return res.status(400).send();
         }
-        res.status(200).json(results[0]); // palauttaa vain yhden käyttäjän
+        res.status(200).json(results[0]);
       }
     );
   });
 }
-//   try {
-//     conn.query(
-//       `SELECT * FROM users WHERE username = ?`,
-//       [username],
-//       (err, results) => {
-//         if (err) {
-//           console.log(err);
-//           return res.status(400).send();
-//         }
-//         res.status(200).json(results);
-//       }
-//     );
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).send();
-//   }
-// });
-// }
 
 getRequest('users', 'users');
 getRequest('announcements', 'announcements');
