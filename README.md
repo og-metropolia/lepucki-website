@@ -4,15 +4,18 @@
 * [Tech and Tools](#tech-and-tools)
 * [REST API](#rest-api)
   * [Users](#users)
-    * [GET users/](#get-users)
-    * [GET users/{username}](#get-usersusername)
-    * [POST users/](#post-users)
+    * [GET /api/users/](#get-apiusers)
+    * [GET /api/users/{username}](#get-apiusersusername)
+    * [POST /api/users/](#post-apiusers)
   * [Announcements](#announcements)
     * [GET announcements/](#get-announcements)
+    * [POST /api/announcements/](#post-apiannouncements)
   * [Laundry](#laundry)
-    * [GET laundry/](#get-laundry)
+    * [GET /api/laundry/](#get-apilaundry)
+    * [POST /api/laundry/](#post-apilaundry)
   * [Sauna](#sauna)
-    * [GET sauna/](#get-sauna)
+    * [GET /api/sauna/](#get-apisauna)
+    * [POST /api/sauna/](#post-apisauna)
 
 
 ## Local Development
@@ -38,11 +41,16 @@ npm start
 
 ## REST API
 
-BASE_URL = http://localhost:3000/api/
+<!--
+GET
+POST
+PUT, PATCH
+DELETE
+-->
 
 ### Users
 
-#### GET users/
+#### GET /api/users/
 
 Example Request
 ```bash
@@ -83,7 +91,7 @@ Example Response
 ]
 ```
 
-#### GET users/{username}
+#### GET /api/users/{username}
 
 Example Request
 ```bash
@@ -101,7 +109,7 @@ Example Response
 }
 ```
 
-#### POST users/
+#### POST /api/users/
 
 Example Request Body
 ```json
@@ -148,8 +156,27 @@ Example Response
 ]
 ```
 
+#### POST /api/announcements/
+
+Example Request Body
+```json
+{
+  "title": "2023-04-24T12:15:14",
+  "content": "2023-04-24T12:15:14",
+  "apartment_number": 598
+}
+```
+
+Example Response
+```json
+{
+  "message": "New row created successfully!"
+}
+```
+
+
 ### Laundry
-#### GET laundry/
+#### GET /api/laundry/
 
 Example Request
 ```bash
@@ -174,8 +201,27 @@ Example Response
 ]
 ```
 
+#### POST /api/laundry/
+
+Example Request Body
+```json
+{
+  "apartment_number": 598,
+  "starting_at": "2023-04-24T12:15:14",
+  "ending_at": "2023-04-24T12:15:14"
+}
+```
+
+Example Response
+```json
+{
+  "message": "New row created successfully!"
+}
+```
+
+
 ### Sauna
-#### GET sauna/
+#### GET /api/sauna/
 
 Example Request
 ```bash
@@ -199,23 +245,20 @@ Example Response
   }
 ]
 ```
+#### POST /api/sauna/
 
+Example Request Body
+```json
+{
+  "apartment_number": 598,
+  "starting_at": "2023-04-24T12:15:14",
+  "ending_at": "2023-04-24T12:15:14"
+}
+```
 
-
-
-<!-- ### POST
-
-- POST /users/
-- POST /announcements/
-- POST /laundry/
-- POST /sauna/ -->
-
-
-
-<!-- POST landry/sauna timestamp format: "2023-04-24T12:15:14" -->
-
-
-<!-- GET
-POST
-PUT, PATCH
-DELETE -->
+Example Response
+```json
+{
+  "message": "New row created successfully!"
+}
+```
