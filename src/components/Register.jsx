@@ -11,7 +11,7 @@ export default function Register({ onRegisterSuccess }) {
 
     // Kutsu REST-rajapintaa käyttäjän rekisteröimiseksi
     try {
-      const response = await fetch('http://localhost:3000/api/users/create', {
+      const response = await fetch('http://localhost:3000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
