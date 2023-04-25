@@ -7,18 +7,22 @@
     * [`GET users/`](#get-users)
     * [`GET users/{username}`](#get-usersusername)
     * [`POST users/`](#post-users)
+    * [`DELETE users/{id}`](#delete-usersid)
   * [Announcements](#announcements)
     * [`GET announcements/`](#get-announcements)
     * [`GET announcements/{id}`](#get-announcementsid)
     * [`POST announcements/`](#post-announcements)
+    * [`DELETE announcement/{id}`](#delete-announcementid)
   * [Laundry](#laundry)
     * [`GET laundry/`](#get-laundry)
     * [`GET laundry/{id}`](#get-laundryid)
     * [`POST laundry/`](#post-laundry)
+    * [`DELETE laundry/{id}`](#delete-laundryid)
   * [Sauna](#sauna)
     * [`GET sauna/`](#get-sauna)
     * [`GET sauna/{id}`](#get-saunaid)
     * [`POST sauna/`](#post-sauna)
+    * [`DELETE sauna/{id}`](#delete-saunaid)
 
 
 ## Local Development
@@ -122,6 +126,15 @@ Example Response
 }
 ```
 
+#### `DELETE users/{id}`
+
+Example Response
+```json
+{
+  "message": "Record deleted successfully!"
+}
+```
+
 ### Announcements
 #### `GET announcements/`
 
@@ -178,6 +191,14 @@ Example Response
 }
 ```
 
+#### `DELETE announcement/{id}`
+
+Example Response
+```json
+{
+  "message": "Record deleted successfully!"
+}
+```
 
 ### Laundry
 #### `GET laundry/`
@@ -230,6 +251,14 @@ Example Response
 }
 ```
 
+#### `DELETE laundry/{id}`
+
+Example Response
+```json
+{
+  "message": "Record deleted successfully!"
+}
+```
 
 ### Sauna
 #### `GET sauna/`
@@ -279,5 +308,14 @@ Example Response
 ```json
 {
   "message": "New row created successfully!"
+}
+```
+
+#### `DELETE sauna/{id}`
+
+Example Response
+```json
+{
+  "message": "Record deleted successfully!"
 }
 ```

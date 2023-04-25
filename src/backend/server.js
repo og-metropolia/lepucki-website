@@ -31,24 +31,42 @@ conn.connect((err) => {
 });
 
 // EXAMPLE: addRow(res, 'users', 'username, password, apartment_number', ['user123', 'foobar', 42]);
-function addRow(response, tableName, fieldNames, fields) {
+function addRow(response, tableName, fieldNames, fieldValues) {
   try {
-    const placeholders = Array.from({ length: fields.length }, () => '?').join(
-      ', '
-    );
+    const placeholders = Array.from(
+      { length: fieldValues.length },
+      () => '?'
+    ).join(', ');
     conn.query(
       `INSERT INTO ${tableName} (${fieldNames}) VALUES (${placeholders})`,
-      fields,
+      fieldValues,
       (err) => {
         if (err) {
-          console.log('Error while inserting a user into the database', err);
+          console.log('Error while inserting a record into the database', err);
           return response.status(400).send();
         }
         return response
           .status(200)
-          .json({ message: 'New row created successfully!' });
+          .json({ message: 'New record created successfully!' });
       }
     );
+  } catch (err) {
+    console.log(err);
+    return response.status(500).send();
+  }
+}
+
+function deleteRow(response, tableName, id) {
+  try {
+    conn.query(`DELETE FROM ${tableName} WHERE id = ?`, id, (err) => {
+      if (err) {
+        console.log('Error while deleting a record from the database', err);
+        return response.status(400).send();
+      }
+      return response
+        .status(200)
+        .json({ message: 'Record deleted successfully!' });
+    });
   } catch (err) {
     console.log(err);
     return response.status(500).send();
@@ -148,6 +166,12 @@ function postSauna() {
   });
 }
 
+function deleteRecordById(endpoint, table) {
+  app.delete(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
+    deleteRow(res, table, req.params.id);
+  });
+}
+
 getRequest(ENDPOINTS.users, TABLES.users);
 getRequest(ENDPOINTS.announcements, TABLES.announcements);
 getRequest(ENDPOINTS.laundry, TABLES.laundry);
@@ -163,6 +187,11 @@ postUser();
 postAnnouncements();
 postLaundry();
 postSauna();
+
+deleteRecordById(ENDPOINTS.users, TABLES.users);
+deleteRecordById(ENDPOINTS.announcements, TABLES.announcements);
+deleteRecordById(ENDPOINTS.laundry, TABLES.laundry);
+deleteRecordById(ENDPOINTS.sauna, TABLES.sauna);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
