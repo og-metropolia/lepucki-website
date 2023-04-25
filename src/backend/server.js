@@ -30,23 +30,6 @@ conn.connect((err) => {
   console.log('MySQL successfully connected!');
 });
 
-function getRequest(endpoint, tableName) {
-  app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
-    try {
-      conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results);
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send();
-    }
-  });
-}
-
 // EXAMPLE: addRow(res, 'users', 'username, password, apartment_number', ['user123', 'foobar', 42]);
 function addRow(response, tableName, fieldNames, fields) {
   try {
@@ -70,6 +53,55 @@ function addRow(response, tableName, fieldNames, fields) {
     console.log(err);
     return response.status(500).send();
   }
+}
+
+function getRequest(endpoint, tableName) {
+  app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
+    try {
+      conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results);
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send();
+    }
+  });
+}
+
+function getSingleRecordById(endpoint, table) {
+  app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
+    conn.query(
+      `SELECT * FROM ${table} WHERE id = ?`,
+      [req.params.id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
+      }
+    );
+  });
+}
+
+function getSingleUserByUsername() {
+  app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
+    conn.query(
+      `SELECT * FROM ${TABLES.users} WHERE username = ?`,
+      [req.params.username],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
+      }
+    );
+  });
 }
 
 function postUser() {
@@ -113,38 +145,6 @@ function postSauna() {
       starting_at,
       ending_at,
     ]);
-  });
-}
-
-function getSingleUserByUsername() {
-  app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
-    conn.query(
-      `SELECT * FROM ${TABLES.users} WHERE username = ?`,
-      [req.params.username],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
-  });
-}
-
-function getSingleRecordById(endpoint, table) {
-  app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
-    conn.query(
-      `SELECT * FROM ${table} WHERE id = ?`,
-      [req.params.id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
   });
 }
 
