@@ -73,7 +73,7 @@ function deleteRow(response, tableName, id) {
   }
 }
 
-function getRequest(endpoint, tableName) {
+function getRecordsAll(endpoint, tableName) {
   app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
     try {
       conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
@@ -90,7 +90,7 @@ function getRequest(endpoint, tableName) {
   });
 }
 
-function getSingleRecordById(endpoint, table) {
+function getRecordById(endpoint, table) {
   app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
     conn.query(
       `SELECT * FROM ${table} WHERE id = ?`,
@@ -172,16 +172,16 @@ function deleteRecordById(endpoint, table) {
   });
 }
 
-getRequest(ENDPOINTS.users, TABLES.users);
-getRequest(ENDPOINTS.announcements, TABLES.announcements);
-getRequest(ENDPOINTS.laundry, TABLES.laundry);
-getRequest(ENDPOINTS.sauna, TABLES.sauna);
+getRecordsAll(ENDPOINTS.users, TABLES.users);
+getRecordsAll(ENDPOINTS.announcements, TABLES.announcements);
+getRecordsAll(ENDPOINTS.laundry, TABLES.laundry);
+getRecordsAll(ENDPOINTS.sauna, TABLES.sauna);
 
 getSingleUserByUsername();
 
-getSingleRecordById(ENDPOINTS.announcements, TABLES.announcements);
-getSingleRecordById(ENDPOINTS.laundry, TABLES.laundry);
-getSingleRecordById(ENDPOINTS.sauna, TABLES.sauna);
+getRecordById(ENDPOINTS.announcements, TABLES.announcements);
+getRecordById(ENDPOINTS.laundry, TABLES.laundry);
+getRecordById(ENDPOINTS.sauna, TABLES.sauna);
 
 postUser();
 postAnnouncements();
