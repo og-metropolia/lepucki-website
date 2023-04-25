@@ -4,9 +4,8 @@ import mysql from 'mysql';
 // import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { ENDPOINTS } from '../constants/api.mjs';
+import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
-import { API_PATH } from '../constants/api.mjs';
 
 dotenv.config(); // loads env vars
 

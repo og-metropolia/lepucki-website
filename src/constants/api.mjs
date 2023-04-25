@@ -1,7 +1,3 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config(); // loads env vars
-
 export const ENDPOINTS = Object.freeze({
   users: 'users',
   announcements: 'announcements',
@@ -10,4 +6,4 @@ export const ENDPOINTS = Object.freeze({
 });
 
 export const API_PATH = 'api/v0';
-export const BASE_URL = `${process.env.API_HOST}:${process.env.API_PORT}/${API_PATH}`;
+export const BASE_URL = `http://localhost:3000/${API_PATH}`;

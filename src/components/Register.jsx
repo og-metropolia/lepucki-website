@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { baseURL, endpoints } from '../constants/api.mjs';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
 export default function Register({ onRegisterSuccess }) {
   const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ export default function Register({ onRegisterSuccess }) {
 
     // Kutsu REST-rajapintaa käyttäjän rekisteröimiseksi
     try {
-      const response = await fetch(`${baseURL}/${endpoints.users}`, {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.users}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
