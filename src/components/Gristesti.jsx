@@ -1,71 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './gridtesti.css';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
+
+let apartment_number = null;
 
 export default function Gridi() {
-  var curr = new Date(); // get current date
-  //var first = curr.getDate(); // - curr.getDay(); // First day is the day of the month - the day of the week
-  const day = curr.getDay();
-  var firstday = new Date(
-    new Date().getTime() - 60 * 60 * 24 * (day - 1) * 1000
-  ).toLocaleDateString();
+  const getWeeksFirstDay = () => {
+    const currentDate = new Date();
+    const firstDayOfWeek = new Date(
+      currentDate.setDate(
+        currentDate.getDate() -
+          currentDate.getDay() +
+          (currentDate.getDay() === 0 ? -6 : 1)
+      )
+    );
+    return firstDayOfWeek;
+  };
+
+  const [currentWeek] = useState(getWeeksFirstDay());
+
+  // const goToNextWeek = () => {
+  //   setCurrentWeek(new Date(currentWeek.setDate(currentWeek.getDate() + 7)));
+  // };
+
+  // const goToPreviousWeek = () => {
+  //   setCurrentWeek(new Date(currentWeek.setDate(currentWeek.getDate() - 7)));
+  // };
+
+  const days = [
+    'Maanantai',
+    'Tiistai',
+    'Keskiviikko',
+    'Torstai',
+    'Perjantai',
+    'Lauantai',
+    'Sunnuntai',
+  ];
+
+  const dateBoxes = days.map((day, index) => {
+    const date = new Date(
+      currentWeek.getTime() + 60 * 60 * 24 * index * 1000
+    ).toLocaleDateString();
+    return (
+      <div className="box" key={index}>
+        <p id="vkpaivat">{day}</p>
+        <p id="paivamaara">{date}</p>
+      </div>
+    );
+  });
 
   return (
-    <div className="wrapper">
-      <div className="box">
-        <p id="vkpaivat">Maanantai</p>
-        <p id="paivamaara">{firstday}</p>
+    <div>
+      <label className="asunnonnumeroLabel">
+        Asunnon numero
+        <input
+          id="asunnonnumeroField"
+          type="number"
+          onChange={(event) => updateApartmentNumber(event)}
+        />
+      </label>
+      <div className="wrapper">
+        {dateBoxes}
+        {kellonAika()}
       </div>
-      <div className="box">
-        <p id="vkpaivat">Tiistai</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 1 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="box">
-        <p id="vkpaivat">Keskiviikko</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 2 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="box">
-        <p id="vkpaivat">Torstai</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 3 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="box">
-        <p id="vkpaivat">Perjantai</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 4 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="box">
-        <p id="vkpaivat"> Lauantai</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 5 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="box">
-        <p id="vkpaivat">Sunnuntai</p>
-        <p id="paivamaara">
-          {new Date(
-            new Date().getTime() + 60 * 60 * 24 * 6 * 1000
-          ).toLocaleDateString()}
-        </p>
-      </div>
-      {kellonAika()}
+      <button onClick={ajanvaraus}>VARAA</button>
     </div>
   );
+}
+
+function updateApartmentNumber(event) {
+  apartment_number = event.target.value;
 }
 
 function kellonAika() {
@@ -105,4 +109,31 @@ function valinta(event) {
   }
 
   console.log(varatut);
+}
+
+async function ajanvaraus() {
+  try {
+    const promises = varatut.map(async (elem) => {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.laundry}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apartment_number,
+          ind: elem,
+        }),
+      });
+
+      if (response.status === 200) {
+        return 'Varaus onnistui!';
+      } else {
+        throw new Error(`Varaus epäonnistui: ${await response.json()}`);
+      }
+    });
+    const messages = await Promise.all(promises);
+    console.log(messages); // Tulosta kaikki palautetut viestit
+  } catch (err) {
+    console.log(`Varaus epäonnistui: ${err.message}`);
+  }
 }

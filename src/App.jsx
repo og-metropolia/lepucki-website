@@ -32,7 +32,7 @@ export default function App() {
             <Home />
           </Route>
           <Route path={path.login}>
-            <Login />
+            <Login setLogged={setLogged} />
           </Route>
           <Route path={path.sauna}>
             <Sauna />

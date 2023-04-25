@@ -1,100 +1,129 @@
-/*
-Tämä koodi esittää yksinkertaista varausjärjestelmää saunalle. Siinä on form-elementti, jossa käyttäjä voi valita päivämäärän ja ajan,
-jonka hän haluaa varata. Käyttäjä voi varata ajan painamalla "Varaa aika" -painiketta.
-
-Aikavarausten tila tallennetaan bookings-tilamuuttujaan, joka sisältää taulukon varattavissa olevista ajoista,
-joka sisältää olion jokaisesta ajasta, jossa on ID, aika, päivämäärä ja varaus -arvo.
-
-Valitun päivämäärän ja ajan tilaa tallennetaan selectedDate- ja selectedTime-tilamuuttujiin.
-
-Kun käyttäjä valitsee päivämäärän ja ajan ja varaa sen, uusi varaus lisätään bookings-taulukkoon. Varauksen tietojen tallentamiseksi käytetään newBooking-oliota.
-
-Käyttäjä voi myös peruuttaa varauksia, joka tehdään painamalla "Peruuta" -painiketta. Tämä päivittää bookings-tilan, asettaen varauksen tilan reserved arvon "false" -arvoksi.
-
-Lopuksi varattuja ja vapaita aikoja näytetään ul -elementissä käyttämällä .filter()- ja .map()-metodeja bookings-taulukon perusteella.
-Vapaat ajat ovat niitä, joissa reserved-ominaisuus on "false", ja varatut ajat ovat niitä, joissa reserved-ominaisuus on "true". Vapaat ja varatut ajat näytetään kahdessa eri listassa.
-*/
-
-
 import React, { useState } from 'react';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
+import './SaunaBooking.css';
 
-function SaunaBooking() {
-  const [bookings, setBookings] = useState([
-    { id: 1, time: '14:00', date: '2022-05-10', reserved: true },
-    { id: 2, time: '16:00', date: '2022-05-10', reserved: false },
-    { id: 3, time: '18:00', date: '2022-05-10', reserved: false },
-    { id: 4, time: '20:00', date: '2022-05-10', reserved: true },
-    { id: 5, time: '14:00', date: '2022-05-11', reserved: false },
-    { id: 6, time: '16:00', date: '2022-05-11', reserved: true },
-    { id: 7, time: '18:00', date: '2022-05-11', reserved: false },
-    { id: 8, time: '20:00', date: '2022-05-11', reserved: false },
-  ]);
-
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+export default function SaunaBooking() {
+  const [currentWeek, setCurrentWeek] = useState(0);
+  const generateBookings = (weeks) => {
+    let bookings = [];
+    const startTime = new Date();
+    startTime.setHours(0, 0, 0, 0);
+    for (let i = 0; i < weeks * 7; i++) {
+      for (let j = 0; j < 4; j++) {
+        const time = ['14:00', '16:00', '18:00', '20:00'][j];
+        const date = new Date(startTime);
+        date.setDate(date.getDate() + i);
+        const id = i * 4 + j + 1;
+        bookings.push({
+          id,
+          time,
+          date: date.toISOString().split('T')[0],
+          reserved: false,
+          timestamp: date,
+        });
+      }
+    }
+    return bookings;
   };
 
-  const handleTimeChange = (event) => {
-    setSelectedTime(event.target.value);
-  };
+  const [bookings, setBookings] = useState(generateBookings(4)); // Generate bookings for 4 weeks
 
-  const handleBooking = () => {
-    const newBooking = {
-      id: bookings.length + 1,
-      time: selectedTime,
-      date: selectedDate,
-      reserved: true,
-    };
-    setBookings([...bookings, newBooking]);
-    setSelectedDate('');
-    setSelectedTime('');
-  };
+  const handleCancel = (ind) => {
+    const index = bookings.findIndex((booking) => booking.id === ind);
+    const updatedBooking = Object.assign({}, bookings[index], {
+      reserved: false,
+    });
 
-  const handleCancel = (id) => {
-    const index = bookings.findIndex((booking) => booking.id === id);
-    const updatedBooking = Object.assign({}, bookings[index], { reserved: false });
     const updatedBookings = bookings.slice();
     updatedBookings[index] = updatedBooking;
     setBookings(updatedBookings);
   };
 
+  const handleBooking = (timestamp) => {
+    // const index = bookings.findIndex((booking) => booking.id === id);
+    // const updatedBooking = Object.assign({}, bookings[index], {
+    //   reserved: true,
+    // });
+
+    const newBooking = {
+      apartment_number: 42,
+      starting_at: timestamp,
+      // ending_at: new Date(timestamp.getTime() + 1000 * 60 * 60 * 2),
+      ending_at: timestamp.setHours(timestamp.getHours() + 2),
+    };
+
+    const updatedBookings = bookings.slice();
+    // updatedBookings[index] = updatedBooking;
+    setBookings(updatedBookings);
+
+    fetch(`${BASE_URL}/${ENDPOINTS.sauna}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBooking),
+    })
+      // .then((response) => {})
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  const prevWeek = () => {
+    setCurrentWeek(currentWeek - 1);
+  };
+
+  const nextWeek = () => {
+    setCurrentWeek(currentWeek + 1);
+  };
+
+  const bookingsToShow = bookings.slice(
+    currentWeek * 28,
+    (currentWeek + 1) * 28
+  );
+
+  const weekdays = [
+    'Maanantai',
+    'Tiistai',
+    'Keskiviikko',
+    'Torstai',
+    'Perjantai',
+    'Lauantai',
+    'Sunnuntai',
+  ];
+
   return (
     <div>
       <h2>Saunan varausjärjestelmä</h2>
-      <form>
-        <label>
-          Päivämäärä:
-          <input type="date" value={selectedDate} onChange={handleDateChange} />
-        </label>
-        <label>
-          Aika:
-          <select value={selectedTime} onChange={handleTimeChange}>
-            <option value="">Valitse aika</option>
-            <option value="14:00">14:00</option>
-            <option value="16:00">16:00</option>
-            <option value="18:00">18:00</option>
-            <option value="20:00">20:00</option>
-          </select>
-        </label>
-        <button type="button" onClick={handleBooking}>
-          Varaa aika
-        </button>
-      </form>
-      <h3>Vapaat ajat:</h3>
-      <ul>
-        {bookings
-          .filter((booking) => booking.reserved === false)
-          .map((booking) => (
-            <li key={booking.id}>
-              {booking.date} klo {booking.time}
-              <button onClick={() => handleCancel(booking.id)}>Peruuta</button>
-            </li>
-          ))}
-      </ul>
-
+      <h3>Kalenteri:</h3>
+      <button onClick={prevWeek} disabled={currentWeek === 0}>
+        Edellinen viikko
+      </button>
+      <button onClick={nextWeek}>Seuraava viikko</button>
+      <div className="calendar">
+        {weekdays.map((weekday, dayIndex) => (
+          <div key={dayIndex} className="day">
+            <div className="day-name">{weekday}</div>
+            {bookingsToShow
+              .filter(
+                (booking) =>
+                  new Date(booking.date).getDay() === (dayIndex + 1) % 7
+              )
+              .map((booking) => (
+                <div
+                  key={booking.id}
+                  className={`time-slot ${
+                    booking.reserved ? 'reserved' : 'free'
+                  }`}
+                  onClick={() =>
+                    booking.reserved ? null : handleBooking(booking.timestamp)
+                  }>
+                  klo {booking.time}
+                </div>
+              ))}
+          </div>
+        ))}
+      </div>
       <h3>Varatut ajat:</h3>
       <ul>
         {bookings
@@ -109,5 +138,3 @@ function SaunaBooking() {
     </div>
   );
 }
-
-export default SaunaBooking;

@@ -1,13 +1,13 @@
 import React from 'react';
 // import Navi from '../components/Navi';
-import LaundryBooking from '../components/LaundryBooking';
+//import LaundryBooking from '../components/LaundryBooking';
 import Gridi from '../components/Gristesti';
 
 export default function Pyykkitupa() {
   return (
     <>
       {/* <Navi /> */}
-      {<LaundryBooking />}
+      {/* {<LaundryBooking />} */}
 
       <main>
         <header>
@@ -16,7 +16,6 @@ export default function Pyykkitupa() {
         </header>
       </main>
       {<Gridi />}
-      <button>Varaa-aika</button>
     </>
   );
 }

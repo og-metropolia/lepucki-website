@@ -1,41 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import Announcement from './Announcement';
 import './AnnouncementBoard.css';
+import { ENDPOINTS, BASE_URL } from '../constants/api.mjs';
+import { millisecond2Day } from '../utils/time.mjs';
 
 export default function AnnouncementBoard() {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [sender, setSender] = useState('');
+  const [content, setContent] = useState('');
+  const [apartment_number, setApartment_number] = useState(undefined);
   const [duration, setDuration] = useState('');
 
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
-    // fetchAnnouncements(); // Poista kommentti kun REST_api backupservice käytössä
-    const interval = setInterval(() => {
-      setAnnouncements((announcements) =>
-        announcements.filter(
-          (announcement) => new Date(announcement.expirationDate) > new Date()
-        )
-      );
-    }, 1000);
+    fetchAnnouncements();
+    // const interval = setInterval(() => {
+    //   setAnnouncements((announcements) =>
+    //     announcements.filter((announcement) => {
+    //       new Date(announcement.expiration_at) > new Date();
+    //     })
+    //   );
+    //   setAnnouncements(announcements);
+    // }, 1000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
-  // Poista kommentti kun REST_api backupservice käytössä
-  // const fetchAnnouncements = async () => {
-  //   try {
-  //     const response = await fetch('/api/announcements');
-  //     const data = await response.json();
-  //     setAnnouncements(data);
-  //   } catch (error) {
-  //     console.error('Error fetching announcements:', error);
-  //   }
-  // };
+  const fetchAnnouncements = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.announcements}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      setAnnouncements(data);
+    } catch (error) {
+      console.error('Error fetching announcements:', error);
+    }
+  };
 
   const validateFields = () => {
-    if (!title || !description || !sender || !duration) {
+    if (!title || !content || !apartment_number || !duration) {
       alert(
         'Täytä kaikki kentät: otsikko, teksti, lähettäjä ja voimassaoloaika.'
       );
@@ -51,42 +58,39 @@ export default function AnnouncementBoard() {
       return;
     }
 
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + parseInt(duration));
-
     const newAnnouncement = {
-      id: announcements.length + 1,
+      // id: announcements.length + 1,
       title,
-      description,
-      sender,
-      date: new Date().toLocaleDateString('fi-FI'),
-      expirationDate,
+      content,
+      apartment_number,
+      expiration_at: new Date(
+        new Date().getTime() + millisecond2Day(parseInt(duration))
+      ),
     };
 
-    // Poista kommentti kun REST_api backupservice käytössä
-    // try {
-    //   const response = await fetch('/api/announcements', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(newAnnouncement),
-    //   });
+    try {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.announcements}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAnnouncement),
+      });
 
-    //   if (response.ok) {
-    //     const savedAnnouncement = await response.json();
-    //     setAnnouncements([...announcements, savedAnnouncement]);
-    //   } else {
-    //     console.error('Error saving announcement:', response.statusText);
-    //   }
-    // } catch (error) {
-    //   console.error('Error saving announcement:', error);
-    // }
+      if (response.ok) {
+        const savedAnnouncement = await response.json();
+        setAnnouncements([...announcements, savedAnnouncement]);
+      } else {
+        console.error('Error saving announcement:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error saving announcement:', error);
+    }
 
     setAnnouncements([...announcements, newAnnouncement]);
     setTitle('');
-    setDescription('');
-    setSender('');
+    setContent('');
+    setApartment_number('');
     setDuration('');
   };
 
@@ -96,7 +100,8 @@ export default function AnnouncementBoard() {
       <form onSubmit={handleSubmit}>
         <label>
           Otsikko:
-          <input
+          <textarea
+            className="announcement-input"
             type="text"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
@@ -106,38 +111,51 @@ export default function AnnouncementBoard() {
         <label>
           Teksti:
           <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
+            className="announcement-input"
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
           />
         </label>
         <br />
         <label>
-          Lähettäjä:
+          Asuntonumero:
           <input
-            type="text"
-            value={sender}
-            onChange={(event) => setSender(event.target.value)}
+            className="announcement-input"
+            type="number"
+            value={apartment_number}
+            onChange={(event) => setApartment_number(event.target.value)}
           />
         </label>
         <br />
         <label>
           Voimassaoloaika (päivinä):
           <input
+            className="announcement-input"
             type="number"
             value={duration}
             onChange={(event) => setDuration(event.target.value)}
           />
         </label>
         <br />
-        <button type="submit">Lisää ilmoitus</button>
+        <button className="btn-announcement" type="submit">
+          Lisää ilmoitus
+        </button>
       </form>
       <hr />
       <h3>Ilmoitukset:</h3>
       <ul>
         {announcements.map((announcement) => (
+          // getRemainingDays(announcement.expiration_at) > 0 ?
           <Announcement key={announcement.id} announcement={announcement} />
         ))}
       </ul>
     </div>
   );
 }
+
+// const getRemainingDays = (epochTime) => {
+//   const timeDifference =
+//     new Date(expiration_at).getTime() - new Date().getTime();
+//   const daysDifference = Math.ceil(timeDifference / millisecond2Day(1));
+//   return daysDifference > 0 ? daysDifference : 0;
+// };

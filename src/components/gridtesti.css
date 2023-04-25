@@ -41,3 +41,7 @@ body {
   font-size: 75%;
   border-radius: 5px;
 }
+
+#asunnonnumeroField {
+  max-width: 100px;
+}
