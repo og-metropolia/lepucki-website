@@ -4,18 +4,18 @@
 * [Tech and Tools](#tech-and-tools)
 * [REST API](#rest-api)
   * [Users](#users)
-    * [GET /api/users/](#get-apiusers)
-    * [GET /api/users/{username}](#get-apiusersusername)
-    * [POST /api/users/](#post-apiusers)
+    * [`GET /api/users/`](#get-apiusers)
+    * [`GET /api/users/{username}`](#get-apiusersusername)
+    * [`POST /api/users/`](#post-apiusers)
   * [Announcements](#announcements)
-    * [GET announcements/](#get-announcements)
-    * [POST /api/announcements/](#post-apiannouncements)
+    * [`GET announcements/`](#get-announcements)
+    * [`POST /api/announcements/`](#post-apiannouncements)
   * [Laundry](#laundry)
-    * [GET /api/laundry/](#get-apilaundry)
-    * [POST /api/laundry/](#post-apilaundry)
+    * [`GET /api/laundry/`](#get-apilaundry)
+    * [`POST /api/laundry/`](#post-apilaundry)
   * [Sauna](#sauna)
-    * [GET /api/sauna/](#get-apisauna)
-    * [POST /api/sauna/](#post-apisauna)
+    * [`GET /api/sauna/`](#get-apisauna)
+    * [`POST /api/sauna/`](#post-apisauna)
 
 
 ## Local Development
@@ -50,12 +50,7 @@ DELETE
 
 ### Users
 
-#### GET /api/users/
-
-Example Request
-```bash
-curl http://localhost:3000/api/users/
-```
+#### `GET /api/users/`
 
 Example Response
 ```json
@@ -91,12 +86,7 @@ Example Response
 ]
 ```
 
-#### GET /api/users/{username}
-
-Example Request
-```bash
-curl http://localhost:3000/api/users/janedoe
-```
+#### `GET /api/users/{username}`
 
 Example Response
 ```json
@@ -109,7 +99,7 @@ Example Response
 }
 ```
 
-#### POST /api/users/
+#### `POST /api/users/`
 
 Example Request Body
 ```json
@@ -128,35 +118,30 @@ Example Response
 ```
 
 ### Announcements
-#### GET announcements/
-
-Example Request
-```bash
-curl http://localhost:3000/api/announcements/
-```
+#### `GET announcements/`
 
 Example Response
 ```json
 [
   {
-    "id":1,
-    "title":"Announcement One",
-    "content":"This is a test announcement.",
-    "apartment_number":1234,
-    "created_at":"2023-04-20T09:33:35.000Z",
-    "expiration_at":"2023-05-31T21:00:00.000Z"
+    "id": 1,
+    "title": "Announcement One",
+    "content": "This is a test announcement.",
+    "apartment_number": 1234,
+    "created_at": "2023-04-20T09:33:35.000Z",
+    "expiration_at": "2023-05-31T21:00:00.000Z"
   },
   {
-    "id":2,
-    "title":"Another Announcement",
-    "content":"content content content content content content content content content","apartment_number":598,
-    "created_at":"2023-04-24T12:12:46.000Z",
-    "expiration_at":"2023-04-24T12:13:46.000Z"
+    "id": 2,
+    "title": "Another Announcement",
+    "content": "content content content content content content content content content","apartment_number": 598,
+    "created_at": "2023-04-24T12:12:46.000Z",
+    "expiration_at": "2023-04-24T12:13:46.000Z"
   }
 ]
 ```
 
-#### POST /api/announcements/
+#### `POST /api/announcements/`
 
 Example Request Body
 ```json
@@ -176,32 +161,27 @@ Example Response
 
 
 ### Laundry
-#### GET /api/laundry/
-
-Example Request
-```bash
-curl http://localhost:3000/api/laundry/
-```
+#### `GET /api/laundry/`
 
 Example Response
 ```json
 [
   {
-    "id":1,
-    "apartment_number":345,
-    "starting_at":"2023-04-24T09:15:14.000Z",
-    "ending_at":"2023-04-24T09:15:14.000Z"
+    "id": 1,
+    "apartment_number": 345,
+    "starting_at": "2023-04-24T09:15:14.000Z",
+    "ending_at": "2023-04-24T09:15:14.000Z"
   },
   {
-    "id":2,
-    "apartment_number":100,
-    "starting_at":"2023-04-24T09:15:14.000Z",
-    "ending_at":"2023-04-24T09:15:14.000Z"
+    "id": 2,
+    "apartment_number": 100,
+    "starting_at": "2023-04-24T09:15:14.000Z",
+    "ending_at": "2023-04-24T09:15:14.000Z"
   }
 ]
 ```
 
-#### POST /api/laundry/
+#### `POST /api/laundry/`
 
 Example Request Body
 ```json
@@ -221,31 +201,26 @@ Example Response
 
 
 ### Sauna
-#### GET /api/sauna/
-
-Example Request
-```bash
-curl http://localhost:3000/api/sauna/
-```
+#### `GET /api/sauna/`
 
 Example Response
 ```json
 [
   {
-    "id":1,
-    "apartment_number":598,
-    "starting_at":"2023-04-24T09:15:14.000Z",
-    "ending_at":"2023-04-24T09:15:14.000Z"
+    "id": 1,
+    "apartment_number": 598,
+    "starting_at": "2023-04-24T09:15:14.000Z",
+    "ending_at": "2023-04-24T09:15:14.000Z"
   },
   {
-    "id":2,
-    "apartment_number":234,
-    "starting_at":"2023-04-24T09:10:15.000Z",
-    "ending_at":"2023-04-24T09:11:14.000Z"
+    "id": 2,
+    "apartment_number": 234,
+    "starting_at": "2023-04-24T09:10:15.000Z",
+    "ending_at": "2023-04-24T09:11:14.000Z"
   }
 ]
 ```
-#### POST /api/sauna/
+#### `POST /api/sauna/`
 
 Example Request Body
 ```json
