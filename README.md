@@ -9,12 +9,15 @@
     * [`POST /api/users/`](#post-apiusers)
   * [Announcements](#announcements)
     * [`GET announcements/`](#get-announcements)
+    * [`GET /api/announcements/{id}`](#get-apiannouncementsid)
     * [`POST /api/announcements/`](#post-apiannouncements)
   * [Laundry](#laundry)
     * [`GET /api/laundry/`](#get-apilaundry)
+    * [`GET /api/laundry/{id}`](#get-apilaundryid)
     * [`POST /api/laundry/`](#post-apilaundry)
   * [Sauna](#sauna)
     * [`GET /api/sauna/`](#get-apisauna)
+    * [`GET /api/sauna/{id}`](#get-apisaunaid)
     * [`POST /api/sauna/`](#post-apisauna)
 
 
@@ -141,6 +144,20 @@ Example Response
 ]
 ```
 
+#### `GET /api/announcements/{id}`
+
+Example Response
+```json
+{
+  "id": 1,
+  "title": "An Announcement",
+  "content": "This is an announcement.",
+  "apartment_number": 1234,
+  "created_at": "2023-04-20T09:33:35.000Z",
+  "expiration_at": "2023-05-31T21:00:00.000Z"
+}
+```
+
 #### `POST /api/announcements/`
 
 Example Request Body
@@ -179,6 +196,18 @@ Example Response
     "ending_at": "2023-04-24T09:15:14.000Z"
   }
 ]
+```
+
+#### `GET /api/laundry/{id}`
+
+Example Response
+```json
+{
+  "id": 1,
+  "apartment_number": 598,
+  "starting_at": "2023-04-24T09:15:14.000Z",
+  "ending_at": "2023-04-24T09:16:14.000Z"
+}
 ```
 
 #### `POST /api/laundry/`
@@ -220,6 +249,19 @@ Example Response
   }
 ]
 ```
+
+#### `GET /api/sauna/{id}`
+
+Example Response
+```json
+{
+  "id": 1,
+  "apartment_number": 12,
+  "starting_at": "2023-04-25T07:20:45.000Z",
+  "ending_at": "2023-04-25T08:20:45.000Z"
+}
+```
+
 #### `POST /api/sauna/`
 
 Example Request Body

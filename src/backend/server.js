@@ -72,66 +72,132 @@ function addRow(response, tableName, fieldNames, fields) {
   }
 }
 
-app.post(`/${API_PATH}/${ENDPOINTS.users}`, async (req, res) => {
-  const { username, password, apartment_number } = req.body;
-  return addRow(res, 'users', 'username, password, apartment_number', [
-    username,
-    password,
-    apartment_number,
-  ]);
-});
+function postUser() {
+  app.post(`/${API_PATH}/${ENDPOINTS.users}`, async (req, res) => {
+    const { username, password, apartment_number } = req.body;
+    return addRow(res, 'users', 'username, password, apartment_number', [
+      username,
+      password,
+      apartment_number,
+    ]);
+  });
+}
 
-app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
-  const { title, content, apartment_number } = req.body;
-  return addRow(res, 'announcements', 'title, content, apartment_number', [
-    title,
-    content,
-    apartment_number,
-  ]);
-});
+function postAnnouncements() {
+  app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
+    const { title, content, apartment_number } = req.body;
+    return addRow(res, 'announcements', 'title, content, apartment_number', [
+      title,
+      content,
+      apartment_number,
+    ]);
+  });
+}
 
-app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
-  const { apartment_number, starting_at, ending_at } = req.body;
-  return addRow(res, 'laundry', 'apartment_number, starting_at, ending_at', [
-    apartment_number,
-    starting_at,
-    ending_at,
-  ]);
-});
+function postLaundry() {
+  app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
+    const { apartment_number, starting_at, ending_at } = req.body;
+    return addRow(res, 'laundry', 'apartment_number, starting_at, ending_at', [
+      apartment_number,
+      starting_at,
+      ending_at,
+    ]);
+  });
+}
 
-app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
-  const { apartment_number, starting_at, ending_at } = req.body;
-  return addRow(res, 'sauna', 'apartment_number, starting_at, ending_at', [
-    apartment_number,
-    starting_at,
-    ending_at,
-  ]);
-});
+function postSauna() {
+  app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
+    const { apartment_number, starting_at, ending_at } = req.body;
+    return addRow(res, 'sauna', 'apartment_number, starting_at, ending_at', [
+      apartment_number,
+      starting_at,
+      ending_at,
+    ]);
+  });
+}
 
-app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
-  const username = req.params.username;
-
-  conn.query(
-    'SELECT * FROM users WHERE username = ?',
-    [username],
-    (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).send();
+function getSingleUser() {
+  app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
+    const username = req.params.username;
+    conn.query(
+      `SELECT * FROM ${tables.users} WHERE username = ?`,
+      [username],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
       }
-      res.status(200).json(results[0]);
-    }
-  );
-});
+    );
+  });
+}
+
+function getSingleAnnouncement() {
+  app.get(`/${API_PATH}/${ENDPOINTS.announcements}/:id`, async (req, res) => {
+    const id = req.params.id;
+    conn.query(
+      `SELECT * FROM ${tables.announcements} WHERE id = ?`,
+      [id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
+      }
+    );
+  });
+}
+
+function getSingleLaundry() {
+  app.get(`/${API_PATH}/${ENDPOINTS.laundry}/:id`, async (req, res) => {
+    const id = req.params.id;
+    conn.query(
+      `SELECT * FROM ${tables.laundry} WHERE id = ?`,
+      [id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
+      }
+    );
+  });
+}
+
+function getSingleSauna() {
+  app.get(`/${API_PATH}/${ENDPOINTS.sauna}/:id`, async (req, res) => {
+    const id = req.params.id;
+    conn.query(
+      `SELECT * FROM ${tables.sauna} WHERE id = ?`,
+      [id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
+      }
+    );
+  });
+}
 
 getRequest(ENDPOINTS.users, tables.users);
 getRequest(ENDPOINTS.announcements, tables.announcements);
 getRequest(ENDPOINTS.laundry, tables.laundry);
 getRequest(ENDPOINTS.sauna, tables.sauna);
 
-// postRequest(endpoints.announcements, tables.announcements);
-// postRequest(endpoints.laundry, tables.laundry);
-// postRequest(endpoints.sauna, tables.sauna);
+getSingleUser();
+getSingleAnnouncement();
+getSingleLaundry();
+getSingleSauna();
+
+postUser();
+postAnnouncements();
+postLaundry();
+postSauna();
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
