@@ -45,3 +45,17 @@ export function deleteRecord(conn, response, tableName, id) {
     return response.status(500).send();
   }
 }
+
+export function getRecordByValue(conn, response, table, fieldName, fieldValue) {
+  conn.query(
+    `SELECT * FROM ${table} WHERE ${fieldName} = ?`,
+    [fieldValue],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        return response.status(400).send();
+      }
+      response.status(200).json(results[0]);
+    }
+  );
+}

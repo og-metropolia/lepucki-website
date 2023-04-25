@@ -6,7 +6,11 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
-import { insertRecord, deleteRecord } from './sql.mjs';
+import {
+  insertRecord,
+  deleteRecord,
+  getRecordByValue as queryRecordByAttribute,
+} from './sql.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -65,16 +69,12 @@ function getRecordById(endpoint, table) {
 
 function getUserByUsername() {
   app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
-    conn.query(
-      `SELECT * FROM ${TABLES.users} WHERE username = ?`,
-      [req.params.username],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
+    return queryRecordByAttribute(
+      conn,
+      res,
+      TABLES.users,
+      'username',
+      req.params.username
     );
   });
 }
