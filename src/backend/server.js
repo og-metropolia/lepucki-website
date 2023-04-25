@@ -4,8 +4,9 @@ import mysql from 'mysql';
 // import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { endpoints } from '../constants/api.mjs';
+import { ENDPOINTS } from '../constants/api.mjs';
 import tables from '../constants/tables.mjs';
+import { API_PATH } from '../constants/api.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -13,7 +14,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const port = process.env.API_PORT || 3000;
-const apiPrefix = '/api';
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -31,7 +31,7 @@ conn.connect((err) => {
 });
 
 function getRequest(endpoint, tableName) {
-  app.get(`${apiPrefix}/${endpoint}/`, async (req, res) => {
+  app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
     try {
       conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
         if (err) {
@@ -72,7 +72,7 @@ function addRow(response, tableName, fieldNames, fields) {
   }
 }
 
-app.post(`${apiPrefix}/${endpoints.users}`, async (req, res) => {
+app.post(`/${API_PATH}/${ENDPOINTS.users}`, async (req, res) => {
   const { username, password, apartment_number } = req.body;
   return addRow(res, 'users', 'username, password, apartment_number', [
     username,
@@ -81,7 +81,7 @@ app.post(`${apiPrefix}/${endpoints.users}`, async (req, res) => {
   ]);
 });
 
-app.post(`${apiPrefix}/${endpoints.announcements}`, async (req, res) => {
+app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
   const { title, content, apartment_number } = req.body;
   return addRow(res, 'announcements', 'title, content, apartment_number', [
     title,
@@ -90,7 +90,7 @@ app.post(`${apiPrefix}/${endpoints.announcements}`, async (req, res) => {
   ]);
 });
 
-app.post(`${apiPrefix}/${endpoints.laundry}`, async (req, res) => {
+app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
   const { apartment_number, starting_at, ending_at } = req.body;
   return addRow(res, 'laundry', 'apartment_number, starting_at, ending_at', [
     apartment_number,
@@ -99,7 +99,7 @@ app.post(`${apiPrefix}/${endpoints.laundry}`, async (req, res) => {
   ]);
 });
 
-app.post(`${apiPrefix}/${endpoints.sauna}`, async (req, res) => {
+app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
   const { apartment_number, starting_at, ending_at } = req.body;
   return addRow(res, 'sauna', 'apartment_number, starting_at, ending_at', [
     apartment_number,
@@ -108,7 +108,7 @@ app.post(`${apiPrefix}/${endpoints.sauna}`, async (req, res) => {
   ]);
 });
 
-app.get(`${apiPrefix}/${endpoints.users}/:username`, async (req, res) => {
+app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
   const username = req.params.username;
 
   conn.query(
@@ -124,10 +124,10 @@ app.get(`${apiPrefix}/${endpoints.users}/:username`, async (req, res) => {
   );
 });
 
-getRequest(endpoints.users, tables.users);
-getRequest(endpoints.announcements, tables.announcements);
-getRequest(endpoints.laundry, tables.laundry);
-getRequest(endpoints.sauna, tables.sauna);
+getRequest(ENDPOINTS.users, tables.users);
+getRequest(ENDPOINTS.announcements, tables.announcements);
+getRequest(ENDPOINTS.laundry, tables.laundry);
+getRequest(ENDPOINTS.sauna, tables.sauna);
 
 // postRequest(endpoints.announcements, tables.announcements);
 // postRequest(endpoints.laundry, tables.laundry);
