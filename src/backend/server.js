@@ -92,15 +92,12 @@ function postAnnouncements() {
 }
 
 function postLaundry() {
-  app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
-    const { apartment_number, starting_at, ending_at } = req.body;
-    return insertRecord(
-      conn,
-      res,
-      TABLES.laundry,
-      'apartment_number, starting_at, ending_at',
-      [apartment_number, starting_at, ending_at]
-    );
+  app.post(`/${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
+    const { apartment_number, ind } = req.body;
+    return insertRecord(conn, res, TABLES.laundry, 'apartment_number, ind', [
+      apartment_number,
+      ind,
+    ]);
   });
 }
 

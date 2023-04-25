@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import path from '../constants/routes.mjs';
 import Register from '../components/Register.jsx';
 import './login.css';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
 export default function Login(props) {
   const { setLogged } = props;
@@ -11,7 +12,6 @@ export default function Login(props) {
   const [password, setPassword] = useState('');
   const [isValid, setValid] = useState(false);
   const history = useHistory();
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ export default function Login(props) {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/users/${inputUsername}`,
+        `${BASE_URL}/${ENDPOINTS.users}/${inputUsername}`,
         {
           method: 'GET',
           headers: {
@@ -67,12 +67,13 @@ export default function Login(props) {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <img className="main-logo" src="src/assets/logo.png" alt="Lepucki logo" />
       <h2 className="login-text">Kirjaudu sisään</h2>
       <form onSubmit={handleSubmit}>
         <br />
         <input
+          className="login-input"
           type="text"
           id="username"
           value={username}
@@ -80,6 +81,7 @@ export default function Login(props) {
           placeholder="Käyttäjänimi"
         />
         <input
+          className="login-input"
           type="password"
           id="password"
           value={password}

@@ -28,7 +28,8 @@ export default function Navi() {
 function LoggedNavLinks() {
   const location = useLocation();
   return (
-    `/${location.pathname}` !== path.front && (
+    `/${location.pathname}` !== path.front &&
+    location.pathname !== path.login && (
       <Nav className="mr-auto btn-nav">
         <Nav.Link href={path.home}>Koti</Nav.Link>
         <Nav.Link href={path.sauna}>Sauna</Nav.Link>
