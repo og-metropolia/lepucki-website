@@ -5,7 +5,7 @@ import mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS } from '../constants/api.mjs';
-import tables from '../constants/tables.mjs';
+import TABLES from '../constants/tables.mjs';
 import { API_PATH } from '../constants/api.mjs';
 
 dotenv.config(); // loads env vars
@@ -116,11 +116,11 @@ function postSauna() {
   });
 }
 
-function getSingleUser() {
+function getSingleUserByUsername() {
   app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
     const username = req.params.username;
     conn.query(
-      `SELECT * FROM ${tables.users} WHERE username = ?`,
+      `SELECT * FROM ${TABLES.users} WHERE username = ?`,
       [username],
       (err, results) => {
         if (err) {
@@ -133,66 +133,29 @@ function getSingleUser() {
   });
 }
 
-function getSingleAnnouncement() {
-  app.get(`/${API_PATH}/${ENDPOINTS.announcements}/:id`, async (req, res) => {
+function getSingleRecordById(endpoint, table) {
+  app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
     const id = req.params.id;
-    conn.query(
-      `SELECT * FROM ${tables.announcements} WHERE id = ?`,
-      [id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
+    conn.query(`SELECT * FROM ${table} WHERE id = ?`, [id], (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).send();
       }
-    );
+      res.status(200).json(results[0]);
+    });
   });
 }
 
-function getSingleLaundry() {
-  app.get(`/${API_PATH}/${ENDPOINTS.laundry}/:id`, async (req, res) => {
-    const id = req.params.id;
-    conn.query(
-      `SELECT * FROM ${tables.laundry} WHERE id = ?`,
-      [id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
-  });
-}
+getRequest(ENDPOINTS.users, TABLES.users);
+getRequest(ENDPOINTS.announcements, TABLES.announcements);
+getRequest(ENDPOINTS.laundry, TABLES.laundry);
+getRequest(ENDPOINTS.sauna, TABLES.sauna);
 
-function getSingleSauna() {
-  app.get(`/${API_PATH}/${ENDPOINTS.sauna}/:id`, async (req, res) => {
-    const id = req.params.id;
-    conn.query(
-      `SELECT * FROM ${tables.sauna} WHERE id = ?`,
-      [id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
-  });
-}
+getSingleUserByUsername();
 
-getRequest(ENDPOINTS.users, tables.users);
-getRequest(ENDPOINTS.announcements, tables.announcements);
-getRequest(ENDPOINTS.laundry, tables.laundry);
-getRequest(ENDPOINTS.sauna, tables.sauna);
-
-getSingleUser();
-getSingleAnnouncement();
-getSingleLaundry();
-getSingleSauna();
+getSingleRecordById(ENDPOINTS.announcements, TABLES.announcements);
+getSingleRecordById(ENDPOINTS.laundry, TABLES.laundry);
+getSingleRecordById(ENDPOINTS.sauna, TABLES.sauna);
 
 postUser();
 postAnnouncements();
