@@ -6,11 +6,7 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
-import {
-  insertRecord,
-  deleteRecord,
-  getRecordByValue as queryRecordByAttribute,
-} from './sql.mjs';
+import { insertRecord, deleteRecord, queryRecordByAttribute } from './sql.mjs';
 
 dotenv.config(); // loads env vars
 

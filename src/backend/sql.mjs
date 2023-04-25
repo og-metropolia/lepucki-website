@@ -46,7 +46,13 @@ export function deleteRecord(conn, response, tableName, id) {
   }
 }
 
-export function getRecordByValue(conn, response, table, fieldName, fieldValue) {
+export function queryRecordByAttribute(
+  conn,
+  response,
+  table,
+  fieldName,
+  fieldValue
+) {
   conn.query(
     `SELECT * FROM ${table} WHERE ${fieldName} = ?`,
     [fieldValue],
