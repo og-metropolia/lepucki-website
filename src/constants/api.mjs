@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config(); // loads env vars
+
 export const endpoints = Object.freeze({
   users: 'users',
   announcements: 'announcements',
@@ -5,4 +9,4 @@ export const endpoints = Object.freeze({
   sauna: 'sauna',
 });
 
-export const baseURL = 'http://localhost:3000/api';
+export const baseURL = `${process.env.API_HOST}:${process.env.API_PORT}/api`;

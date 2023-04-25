@@ -12,7 +12,7 @@ dotenv.config(); // loads env vars
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.API_PORT || 3000;
 const apiPrefix = '/api';
 
 const conn = mysql.createConnection({
