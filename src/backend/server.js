@@ -53,23 +53,13 @@ function getRecordsAll(endpoint, tableName) {
 
 function getRecordById(endpoint, table) {
   app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
-    conn.query(
-      `SELECT * FROM ${table} WHERE id = ?`,
-      [req.params.id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]);
-      }
-    );
+    queryRecordByAttribute(conn, res, table, 'id', req.params.id);
   });
 }
 
 function getUserByUsername() {
   app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
-    return queryRecordByAttribute(
+    queryRecordByAttribute(
       conn,
       res,
       TABLES.users,
@@ -143,7 +133,6 @@ getRecordsAll(ENDPOINTS.laundry, TABLES.laundry);
 getRecordsAll(ENDPOINTS.sauna, TABLES.sauna);
 
 getUserByUsername();
-
 getRecordById(ENDPOINTS.announcements, TABLES.announcements);
 getRecordById(ENDPOINTS.laundry, TABLES.laundry);
 getRecordById(ENDPOINTS.sauna, TABLES.sauna);
