@@ -47,7 +47,7 @@ function addRow(response, tableName, fieldNames, fieldValues) {
         }
         return response
           .status(200)
-          .json({ message: 'New record created successfully!' });
+          .json({ message: 'Record created successfully!' });
       }
     );
   } catch (err) {
