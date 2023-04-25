@@ -118,10 +118,9 @@ function postSauna() {
 
 function getSingleUserByUsername() {
   app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
-    const username = req.params.username;
     conn.query(
       `SELECT * FROM ${TABLES.users} WHERE username = ?`,
-      [username],
+      [req.params.username],
       (err, results) => {
         if (err) {
           console.log(err);
@@ -135,14 +134,17 @@ function getSingleUserByUsername() {
 
 function getSingleRecordById(endpoint, table) {
   app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
-    const id = req.params.id;
-    conn.query(`SELECT * FROM ${table} WHERE id = ?`, [id], (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).send();
+    conn.query(
+      `SELECT * FROM ${table} WHERE id = ?`,
+      [req.params.id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send();
+        }
+        res.status(200).json(results[0]);
       }
-      res.status(200).json(results[0]);
-    });
+    );
   });
 }
 
