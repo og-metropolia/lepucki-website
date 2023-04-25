@@ -4,21 +4,21 @@
 * [Tech and Tools](#tech-and-tools)
 * [REST API](#rest-api)
   * [Users](#users)
-    * [`GET /api/users/`](#get-apiusers)
-    * [`GET /api/users/{username}`](#get-apiusersusername)
-    * [`POST /api/users/`](#post-apiusers)
+    * [`GET users/`](#get-users)
+    * [`GET users/{username}`](#get-usersusername)
+    * [`POST users/`](#post-users)
   * [Announcements](#announcements)
     * [`GET announcements/`](#get-announcements)
-    * [`GET /api/announcements/{id}`](#get-apiannouncementsid)
-    * [`POST /api/announcements/`](#post-apiannouncements)
+    * [`GET announcements/{id}`](#get-announcementsid)
+    * [`POST announcements/`](#post-announcements)
   * [Laundry](#laundry)
-    * [`GET /api/laundry/`](#get-apilaundry)
-    * [`GET /api/laundry/{id}`](#get-apilaundryid)
-    * [`POST /api/laundry/`](#post-apilaundry)
+    * [`GET laundry/`](#get-laundry)
+    * [`GET laundry/{id}`](#get-laundryid)
+    * [`POST laundry/`](#post-laundry)
   * [Sauna](#sauna)
-    * [`GET /api/sauna/`](#get-apisauna)
-    * [`GET /api/sauna/{id}`](#get-apisaunaid)
-    * [`POST /api/sauna/`](#post-apisauna)
+    * [`GET sauna/`](#get-sauna)
+    * [`GET sauna/{id}`](#get-saunaid)
+    * [`POST sauna/`](#post-sauna)
 
 
 ## Local Development
@@ -51,9 +51,11 @@ PUT, PATCH
 DELETE
 -->
 
+Base URL: http://localhost:3000/api/v0/
+
 ### Users
 
-#### `GET /api/users/`
+#### `GET users/`
 
 Example Response
 ```json
@@ -89,7 +91,7 @@ Example Response
 ]
 ```
 
-#### `GET /api/users/{username}`
+#### `GET users/{username}`
 
 Example Response
 ```json
@@ -102,7 +104,7 @@ Example Response
 }
 ```
 
-#### `POST /api/users/`
+#### `POST users/`
 
 Example Request Body
 ```json
@@ -144,7 +146,7 @@ Example Response
 ]
 ```
 
-#### `GET /api/announcements/{id}`
+#### `GET announcements/{id}`
 
 Example Response
 ```json
@@ -158,7 +160,7 @@ Example Response
 }
 ```
 
-#### `POST /api/announcements/`
+#### `POST announcements/`
 
 Example Request Body
 ```json
@@ -178,7 +180,7 @@ Example Response
 
 
 ### Laundry
-#### `GET /api/laundry/`
+#### `GET laundry/`
 
 Example Response
 ```json
@@ -198,7 +200,7 @@ Example Response
 ]
 ```
 
-#### `GET /api/laundry/{id}`
+#### `GET laundry/{id}`
 
 Example Response
 ```json
@@ -210,7 +212,7 @@ Example Response
 }
 ```
 
-#### `POST /api/laundry/`
+#### `POST laundry/`
 
 Example Request Body
 ```json
@@ -230,7 +232,7 @@ Example Response
 
 
 ### Sauna
-#### `GET /api/sauna/`
+#### `GET sauna/`
 
 Example Response
 ```json
@@ -250,7 +252,7 @@ Example Response
 ]
 ```
 
-#### `GET /api/sauna/{id}`
+#### `GET sauna/{id}`
 
 Example Response
 ```json
@@ -262,7 +264,7 @@ Example Response
 }
 ```
 
-#### `POST /api/sauna/`
+#### `POST sauna/`
 
 Example Request Body
 ```json
