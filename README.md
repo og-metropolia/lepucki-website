@@ -122,7 +122,7 @@ Example Request Body
 Example Response
 ```json
 {
-  "message": "New row created successfully!"
+  "message": "New record created successfully!"
 }
 ```
 
@@ -187,7 +187,7 @@ Example Request Body
 Example Response
 ```json
 {
-  "message": "New row created successfully!"
+  "message": "New record created successfully!"
 }
 ```
 
@@ -247,7 +247,7 @@ Example Request Body
 Example Response
 ```json
 {
-  "message": "New row created successfully!"
+  "message": "New record created successfully!"
 }
 ```
 
@@ -307,7 +307,7 @@ Example Request Body
 Example Response
 ```json
 {
-  "message": "New row created successfully!"
+  "message": "New record created successfully!"
 }
 ```
 
