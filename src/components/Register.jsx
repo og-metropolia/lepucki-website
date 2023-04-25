@@ -35,7 +35,6 @@ export default function Register({ onRegisterSuccess }) {
       }
     } catch (err) {
       setMessage(`Rekisteröinti epäonnistui: ${err.message}`);
-      // setMessage(`${username} ${password} ${apartmentNumber}`);
     }
   };
 
