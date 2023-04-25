@@ -6,6 +6,7 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
+import { insertRecord, deleteRecord } from './sql.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -28,49 +29,6 @@ conn.connect((err) => {
   }
   console.log('MySQL successfully connected!');
 });
-
-// EXAMPLE: addRow(res, 'users', 'username, password, apartment_number', ['user123', 'foobar', 42]);
-function addRow(response, tableName, fieldNames, fieldValues) {
-  try {
-    const placeholders = Array.from(
-      { length: fieldValues.length },
-      () => '?'
-    ).join(', ');
-    conn.query(
-      `INSERT INTO ${tableName} (${fieldNames}) VALUES (${placeholders})`,
-      fieldValues,
-      (err) => {
-        if (err) {
-          console.log('Error while inserting a record into the database', err);
-          return response.status(400).send();
-        }
-        return response
-          .status(200)
-          .json({ message: 'Record created successfully!' });
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    return response.status(500).send();
-  }
-}
-
-function deleteRow(response, tableName, id) {
-  try {
-    conn.query(`DELETE FROM ${tableName} WHERE id = ?`, id, (err) => {
-      if (err) {
-        console.log('Error while deleting a record from the database', err);
-        return response.status(400).send();
-      }
-      return response
-        .status(200)
-        .json({ message: 'Record deleted successfully!' });
-    });
-  } catch (err) {
-    console.log(err);
-    return response.status(500).send();
-  }
-}
 
 function getRecordsAll(endpoint, tableName) {
   app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
@@ -124,50 +82,58 @@ function getSingleUserByUsername() {
 function postUser() {
   app.post(`/${API_PATH}/${ENDPOINTS.users}`, async (req, res) => {
     const { username, password, apartment_number } = req.body;
-    return addRow(res, 'users', 'username, password, apartment_number', [
-      username,
-      password,
-      apartment_number,
-    ]);
+    return insertRecord(
+      conn,
+      res,
+      'users',
+      'username, password, apartment_number',
+      [username, password, apartment_number]
+    );
   });
 }
 
 function postAnnouncements() {
   app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
     const { title, content, apartment_number } = req.body;
-    return addRow(res, 'announcements', 'title, content, apartment_number', [
-      title,
-      content,
-      apartment_number,
-    ]);
+    return insertRecord(
+      conn,
+      res,
+      'announcements',
+      'title, content, apartment_number',
+      [title, content, apartment_number]
+    );
   });
 }
 
 function postLaundry() {
   app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
     const { apartment_number, starting_at, ending_at } = req.body;
-    return addRow(res, 'laundry', 'apartment_number, starting_at, ending_at', [
-      apartment_number,
-      starting_at,
-      ending_at,
-    ]);
+    return insertRecord(
+      conn,
+      res,
+      'laundry',
+      'apartment_number, starting_at, ending_at',
+      [apartment_number, starting_at, ending_at]
+    );
   });
 }
 
 function postSauna() {
   app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
     const { apartment_number, starting_at, ending_at } = req.body;
-    return addRow(res, 'sauna', 'apartment_number, starting_at, ending_at', [
-      apartment_number,
-      starting_at,
-      ending_at,
-    ]);
+    return insertRecord(
+      conn,
+      res,
+      'sauna',
+      'apartment_number, starting_at, ending_at',
+      [apartment_number, starting_at, ending_at]
+    );
   });
 }
 
 function deleteRecordById(endpoint, table) {
   app.delete(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
-    deleteRow(res, table, req.params.id);
+    deleteRecord(conn, res, table, req.params.id);
   });
 }
 
