@@ -4,14 +4,16 @@ import mysql from 'mysql';
 // import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
+import TABLES from '../constants/tables.mjs';
+import { insertRecord, deleteRecord, queryRecordByAttribute } from './sql.mjs';
 
 dotenv.config(); // loads env vars
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-const port = process.env.SERVER_PORT || 3000;
-const api_prefix = '/api';
+const port = process.env.API_PORT || 3000;
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -28,8 +30,8 @@ conn.connect((err) => {
   console.log('MySQL successfully connected!');
 });
 
-function getRequest(endpoint, tableName) {
-  app.get(`${api_prefix}/${endpoint}/`, async (req, res) => {
+function getRecordsAll(endpoint, tableName) {
+  app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
     try {
       conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
         if (err) {
@@ -45,79 +47,101 @@ function getRequest(endpoint, tableName) {
   });
 }
 
-//routes
-app.post('/api/users/create', async (req, res) => {
-  // console.log(`req.body : ${req.body}`);
-  // console.log(`res.res : ${res.res}`);
-  const { username, password, apartment_number } = req.body;
+function getRecordById(endpoint, table) {
+  app.get(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
+    queryRecordByAttribute(conn, res, table, 'id', req.params.id);
+  });
+}
 
-  try {
-    conn.query(
-      'INSERT INTO users (username, password, apartment_number) VALUES (?, ?, ?)',
-      [username, password, apartment_number],
-      (err) => {
-        if (err) {
-          console.log('Error while inserting a user into the database', err);
-          return res.status(400).send();
-        }
-        return res
-          .status(200)
-          .json({ message: 'New user created successfully!' });
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send();
-  }
-});
-
-function loginCheck() {
-  app.get(`${api_prefix}/users/:username`, async (req, res) => {
-    const username = req.params.username;
-
-    conn.query(
-      'SELECT * FROM users WHERE username = ?',
-      [username],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results[0]); // palauttaa vain yhden käyttäjän
-      }
+function getUserByUsername() {
+  app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
+    queryRecordByAttribute(
+      conn,
+      res,
+      TABLES.users,
+      'username',
+      req.params.username
     );
   });
 }
-//   try {
-//     conn.query(
-//       `SELECT * FROM users WHERE username = ?`,
-//       [username],
-//       (err, results) => {
-//         if (err) {
-//           console.log(err);
-//           return res.status(400).send();
-//         }
-//         res.status(200).json(results);
-//       }
-//     );
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).send();
-//   }
-// });
-// }
 
-getRequest('users', 'users');
-getRequest('announcements', 'announcements');
-getRequest('laundry', 'laundry');
-getRequest('sauna', 'sauna');
+function postUser() {
+  app.post(`/${API_PATH}/${ENDPOINTS.users}`, async (req, res) => {
+    const { username, password, apartment_number } = req.body;
+    return insertRecord(
+      conn,
+      res,
+      TABLES.users,
+      'username, password, apartment_number',
+      [username, password, apartment_number]
+    );
+  });
+}
 
-loginCheck();
+function postAnnouncements() {
+  app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
+    const { title, content, apartment_number } = req.body;
+    return insertRecord(
+      conn,
+      res,
+      TABLES.announcements,
+      'title, content, apartment_number',
+      [title, content, apartment_number]
+    );
+  });
+}
 
-// postRequest('users', 'users');
-// postRequest('announcements', 'announcements');
-// postRequest('laundry', 'laundry');
-// postRequest('sauna', 'sauna');
+function postLaundry() {
+  app.post(`${API_PATH}/${ENDPOINTS.laundry}`, async (req, res) => {
+    const { apartment_number, starting_at, ending_at } = req.body;
+    return insertRecord(
+      conn,
+      res,
+      TABLES.laundry,
+      'apartment_number, starting_at, ending_at',
+      [apartment_number, starting_at, ending_at]
+    );
+  });
+}
+
+function postSauna() {
+  app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
+    const { apartment_number, starting_at, ending_at } = req.body;
+    return insertRecord(
+      conn,
+      res,
+      TABLES.sauna,
+      'apartment_number, starting_at, ending_at',
+      [apartment_number, starting_at, ending_at]
+    );
+  });
+}
+
+function deleteRecordById(endpoint, table) {
+  app.delete(`/${API_PATH}/${endpoint}/:id`, async (req, res) => {
+    deleteRecord(conn, res, table, req.params.id);
+  });
+}
+
+getRecordsAll(ENDPOINTS.users, TABLES.users);
+getRecordsAll(ENDPOINTS.announcements, TABLES.announcements);
+getRecordsAll(ENDPOINTS.laundry, TABLES.laundry);
+getRecordsAll(ENDPOINTS.sauna, TABLES.sauna);
+
+getUserByUsername();
+getRecordById(ENDPOINTS.announcements, TABLES.announcements);
+getRecordById(ENDPOINTS.laundry, TABLES.laundry);
+getRecordById(ENDPOINTS.sauna, TABLES.sauna);
+
+postUser();
+postAnnouncements();
+postLaundry();
+postSauna();
+
+deleteRecordById(ENDPOINTS.users, TABLES.users);
+deleteRecordById(ENDPOINTS.announcements, TABLES.announcements);
+deleteRecordById(ENDPOINTS.laundry, TABLES.laundry);
+deleteRecordById(ENDPOINTS.sauna, TABLES.sauna);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
