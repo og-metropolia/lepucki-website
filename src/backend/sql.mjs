@@ -1,4 +1,10 @@
-export function insertRecord(conn, response, tableName, fieldNames, fieldValues) {
+export function insertRecord(
+  conn,
+  response,
+  tableName,
+  fieldNames,
+  fieldValues
+) {
   try {
     const placeholders = Array.from(
       { length: fieldValues.length },

@@ -85,7 +85,7 @@ function postUser() {
     return insertRecord(
       conn,
       res,
-      'users',
+      TABLES.users,
       'username, password, apartment_number',
       [username, password, apartment_number]
     );
@@ -98,7 +98,7 @@ function postAnnouncements() {
     return insertRecord(
       conn,
       res,
-      'announcements',
+      TABLES.announcements,
       'title, content, apartment_number',
       [title, content, apartment_number]
     );
@@ -111,7 +111,7 @@ function postLaundry() {
     return insertRecord(
       conn,
       res,
-      'laundry',
+      TABLES.laundry,
       'apartment_number, starting_at, ending_at',
       [apartment_number, starting_at, ending_at]
     );
@@ -124,7 +124,7 @@ function postSauna() {
     return insertRecord(
       conn,
       res,
-      'sauna',
+      TABLES.sauna,
       'apartment_number, starting_at, ending_at',
       [apartment_number, starting_at, ending_at]
     );
