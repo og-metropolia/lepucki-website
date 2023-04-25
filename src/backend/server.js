@@ -63,7 +63,7 @@ function getRecordById(endpoint, table) {
   });
 }
 
-function getSingleUserByUsername() {
+function getUserByUsername() {
   app.get(`/${API_PATH}/${ENDPOINTS.users}/:username`, async (req, res) => {
     conn.query(
       `SELECT * FROM ${TABLES.users} WHERE username = ?`,
@@ -142,7 +142,7 @@ getRecordsAll(ENDPOINTS.announcements, TABLES.announcements);
 getRecordsAll(ENDPOINTS.laundry, TABLES.laundry);
 getRecordsAll(ENDPOINTS.sauna, TABLES.sauna);
 
-getSingleUserByUsername();
+getUserByUsername();
 
 getRecordById(ENDPOINTS.announcements, TABLES.announcements);
 getRecordById(ENDPOINTS.laundry, TABLES.laundry);
