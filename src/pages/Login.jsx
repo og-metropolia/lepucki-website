@@ -49,6 +49,7 @@ export default function Login() {
     registerWindow.document.write(
       '<html><head><title>Rekisteröidy</title></head><body>'
     );
+    registerWindow.document.write('</style></head><body>');
     registerWindow.document.write('<div id="register-root"></div>');
     registerWindow.document.write('</body></html>');
     registerWindow.document.close();
@@ -63,7 +64,7 @@ export default function Login() {
 
   const handleRegisterSuccess = () => {
     alert(
-      'Rekisteröityminen onnistui! Voit nyt sulkea ikkunan ja kirjautua sisään pääsivulta.'
+      'Rekisteröityminen onnistui! Voit nyt kirjautua sisään uusilla tunnuksilla.'
     );
   };
 
@@ -90,7 +91,9 @@ export default function Login() {
           placeholder="Salasana"
         />
         <br />
-        <button type="submit">Kirjaudu</button>
+        <button className="btn-confirm" type="submit">
+          Kirjaudu
+        </button>
       </form>
       {isValid && (
         <p>
@@ -98,7 +101,9 @@ export default function Login() {
         </p>
       )}
 
-      <button onClick={openRegisterWindow}>Luo käyttäjä</button>
+      <button className="btn-register" onClick={openRegisterWindow}>
+        Luo käyttäjä
+      </button>
     </div>
   );
 }

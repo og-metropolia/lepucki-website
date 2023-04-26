@@ -78,7 +78,8 @@ export default function SaunaBooking() {
 
       const napit = (
         <button className={btnClassName} name={i} onClick={valinta}>
-          {alkuaika.toFixed(2)} - {loppuaika.toFixed(2)}
+          {`${alkuaika.toFixed(2).toString().padStart(5, '0')} -
+          ${loppuaika.toFixed(2).toString().padStart(5, '0')} `}
         </button>
       );
 
@@ -106,7 +107,7 @@ export default function SaunaBooking() {
         {aikavali}
       </div>
       <button className="btn-laundry" onClick={ajanvaraus}>
-        VARAA
+        Varaa aika
       </button>
     </div>
   );
@@ -118,7 +119,7 @@ function updateApartmentNumber(event) {
 
 async function fetchBookings() {
   try {
-    const response = await fetch(`${BASE_URL}/${ENDPOINTS.sauna}`, {
+    const response = await fetch(`${BASE_URL}/${ENDPOINTS.laundry}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -159,15 +160,14 @@ async function ajanvaraus() {
         }),
       });
 
-      if (response.status === 200) {
-        return 'Varaus onnistui!';
-      } else {
+      if (response.status !== 200) {
         throw new Error(`Varaus epäonnistui: ${await response.json()}`);
       }
     });
-    const messages = await Promise.all(promises);
-    console.log(messages);
+    await Promise.all(promises);
   } catch (err) {
     console.log(`Varaus epäonnistui: ${err.message}`);
+    return;
   }
+  alert('Varaus onnistui!');
 }

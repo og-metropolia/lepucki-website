@@ -19,6 +19,10 @@ body {
   margin: 20px;
 }
 
+.etusivu-container p {
+  text-align: left;
+}
+
 .etusivu-content {
   width: 50%;
   margin: 20px;

@@ -3,6 +3,8 @@
 #root {
   background-color: var(--lepucki-gray);
   color: var(--lepucki-white);
+  height: auto;
+  width: auto;
 }
 
 h1,

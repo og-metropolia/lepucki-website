@@ -6,8 +6,7 @@ export default function Pyykkitupa() {
     <>
       <main>
         <header>
-          <h1 className="login-text">Pyykkitupa</h1>
-          <p>Ajanvaraus</p>
+          <h1 className="login-text">Pyykkituvan ajanvaraus</h1>
         </header>
       </main>
       {<LaundryBooking />}

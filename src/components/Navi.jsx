@@ -31,7 +31,7 @@ function LoggedNavLinks() {
     `/${location.pathname}` !== path.front &&
     location.pathname !== path.login && (
       <Nav className="mr-auto btn-nav">
-        <Nav.Link href={path.home}>Koti</Nav.Link>
+        <Nav.Link href={path.home}>Ilmoitustaulu</Nav.Link>
         <Nav.Link href={path.sauna}>Sauna</Nav.Link>
         <Nav.Link href={path.laundry}>Pyykkitupa</Nav.Link>
         <Nav.Link href={path.contact}>Yhteystiedot</Nav.Link>

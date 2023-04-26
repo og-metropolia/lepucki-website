@@ -1,7 +1,7 @@
 export default Object.freeze({
   front: '//',
   login: '/kirjaudu',
-  home: '/ilmoitukset',
+  home: '/ilmoitustaulu',
   sauna: '/sauna',
   laundry: '/pyykkitupa',
   contact: '/yhteystiedot',

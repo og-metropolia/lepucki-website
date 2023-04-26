@@ -106,7 +106,7 @@ export default function SaunaBooking() {
         {aikavali}
       </div>
       <button className="btn-laundry" onClick={ajanvaraus}>
-        VARAA
+        Varaa aika
       </button>
     </div>
   );
@@ -158,15 +158,14 @@ async function ajanvaraus() {
         }),
       });
 
-      if (response.status === 200) {
-        return 'Varaus onnistui!';
-      } else {
+      if (response.status !== 200) {
         throw new Error(`Varaus epäonnistui: ${await response.json()}`);
       }
     });
-    const messages = await Promise.all(promises);
-    console.log(messages);
+    await Promise.all(promises);
   } catch (err) {
     console.log(`Varaus epäonnistui: ${err.message}`);
+    return;
   }
+  alert('Varaus onnistui!');
 }

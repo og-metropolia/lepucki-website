@@ -1,21 +1,99 @@
-header {
-  margin-bottom: 2em;
+@import url('../assets/colors.css');
+
+h1 {
   text-align: center;
+  padding-bottom: 50px;
 }
 
-.yhteystietoHeader {
-  text-decoration: underline;
+.contact-link {
+  color: var(--lepucki-white);
+  text-decoration: none;
+}
+
+.contact-link:hover {
+  color: var(--lepucki-orange);
+  text-decoration: none;
+}
+
+.yhteystiedot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 .hallitus {
-  float: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.yhteystietoHeader {
+  margin-bottom: 35px;
+  text-align: center;
+  text-decoration: und;
+}
+
+.hallitus-members {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 20%;
+  width: 70%;
+  align-items: center;
+  justify-content: center;
+}
+
+.memebers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .isannointiJaHuolto {
-  float: right;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
 }
 
+.isannointi,
+.huolto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+.memberImage {
+  width: 100px;
+  height: auto;
+  margin-bottom: 15px;
+}
 
+.huoltoImage {
+  width: 300px;
+  height: auto;
+  margin-bottom: 15px;
+}
 
+.isannointiImage {
+  width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .yhteystiedot {
+    flex-direction: column;
+  }
+
+  .hallitus,
+  .isannointiJaHuolto {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

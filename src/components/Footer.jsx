@@ -18,8 +18,8 @@ export default function Footer() {
         <div className="footer-col-2">
           <h4>Yhteystiedot</h4>
           <p>Puheenjohtaja: Matti Meikäläinen</p>
-          <p>Puhelin: 040 123 4567</p>
-          <p>Email: matti.meikalainen@esimerkkitie123.fi</p>
+          <p>040 123 4567</p>
+          <p>matti.meikalainen@lepucki.fi</p>
         </div>
         <div className="footer-col-3">
           <h4>Linkit</h4>

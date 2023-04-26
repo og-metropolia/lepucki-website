@@ -96,7 +96,7 @@ export default function AnnouncementBoard() {
 
   return (
     <div className="announcement-board-container">
-      <h1>Ilmoitustaulu</h1>
+      <h1 className="announcement-header">Ilmoitustaulu</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Otsikko:
