@@ -64,12 +64,12 @@ export function queryRecordsAll(conn, response, tableName) {
 export function queryRecordByAttribute(
   conn,
   response,
-  table,
+  tableName,
   fieldName,
   fieldValue
 ) {
   conn.query(
-    `SELECT * FROM ${table} WHERE ${fieldName} = ?`,
+    `SELECT * FROM ${tableName} WHERE ${fieldName} = ?`,
     [fieldValue],
     (err, results) => {
       if (results.length === 0) {
