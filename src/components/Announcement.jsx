@@ -1,3 +1,4 @@
+import './announcement.css';
 import React from 'react';
 import { millisecond2Day } from '../utils/time.mjs';
 
@@ -11,11 +12,13 @@ export default function Announcement({ announcement }) {
 
   return (
     <li className="announcement">
-      <strong>{announcement.title}</strong> - {announcement.apartment_number} -{' '}
+      <strong>{announcement.title}</strong>
       <p>{announcement.content}</p>
+      <p>{`Terveisin asunto ${announcement.apartment_number}.`}</p>
       <p className="remaining-days">
-        Ilmoitus on voimassa vielä{' '}
-        {getRemainingDays(announcement.expiration_at)} päivää
+        {`(voimassa vielä ${getRemainingDays(
+          announcement.expiration_at
+        )} päivää)`}
       </p>
     </li>
   );

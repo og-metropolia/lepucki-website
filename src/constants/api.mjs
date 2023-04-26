@@ -3,6 +3,7 @@ export const ENDPOINTS = Object.freeze({
   announcements: 'announcements',
   laundry: 'laundry',
   sauna: 'sauna',
+  contact: 'contact_form',
 });
 
 export const API_PATH = 'api/v0';

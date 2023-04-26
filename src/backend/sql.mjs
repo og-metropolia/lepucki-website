@@ -46,6 +46,21 @@ export function deleteRecord(conn, response, tableName, id) {
   }
 }
 
+export function queryRecordsAll(conn, response, tableName) {
+  try {
+    conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
+      if (err) {
+        console.log(err);
+        return response.status(400).send();
+      }
+      response.status(200).json(results);
+    });
+  } catch (err) {
+    console.log(err);
+    return response.status(500).send();
+  }
+}
+
 export function queryRecordByAttribute(
   conn,
   response,
@@ -57,6 +72,9 @@ export function queryRecordByAttribute(
     `SELECT * FROM ${table} WHERE ${fieldName} = ?`,
     [fieldValue],
     (err, results) => {
+      if (results.length === 0) {
+        response.status(200).json({ message: 'Record not found' });
+      }
       if (err) {
         console.log(err);
         return response.status(400).send();

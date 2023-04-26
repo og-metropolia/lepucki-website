@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import path from '../constants/routes.mjs';
 import './navi.css';
@@ -42,9 +42,11 @@ function LoggedNavLinks() {
 
 function LogButton() {
   const { isLogged, setLogged } = useContext(AuthContext);
+  const history = useHistory();
 
   const handleLogout = () => {
     setLogged(false);
+    history.push(path.login);
   };
 
   return isLogged ? (

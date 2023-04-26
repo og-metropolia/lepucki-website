@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import './contact.css';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
 export default function YhteydenottoFormi() {
   const [nimi, setNimi] = useState('');
   const [email, setEmail] = useState('');
   const [viesti, setViesti] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Lomake lähetetty');
-    alert('Viesti lähetetty onnistuneesti');
-    setNimi('');
-    setEmail('');
-    setViesti('');
+
+    try {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.contact}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: nimi, email, message: viesti }),
+      });
+
+      if (response.ok) {
+        alert('Viesti lähetetty onnistuneesti');
+        setNimi('');
+        setEmail('');
+        setViesti('');
+      } else {
+        alert('Viestin lähettäminen epäonnistui. Yritä uudelleen.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Viestin lähettäminen epäonnistui. Yritä uudelleen.');
+    }
   };
 
   return (

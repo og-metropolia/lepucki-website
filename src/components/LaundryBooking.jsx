@@ -1,130 +1,173 @@
-// import React, { useState } from 'react';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
+import './booking.css';
+import React, { useState, useEffect } from 'react';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
-// export default function LaundryBooking() {
-//   const [bookings, setBookings] = useState([]);
+let apartment_number = null;
 
-//   const [selectedDate, setSelectedDate] = useState(null);
-//   const [selectedTime, setSelectedTime] = useState('');
-//   const [apartmentNumber, setApartmentNumber] = useState('');
+const valittu = 'kellonaikaButton valittu';
+const eiValittu = 'kellonaikaButton eivalittu';
 
-//   const handleDateChange = (date) => {
-//     setSelectedDate(date);
-//   };
+export default function SaunaBooking() {
+  const [aikavali, setAikavali] = useState([]);
 
-//   const handleTimeChange = (event) => {
-//     setSelectedTime(event.target.value);
-//   };
+  const getWeeksFirstDay = () => {
+    const currentDate = new Date();
+    const firstDayOfWeek = new Date(
+      currentDate.setDate(
+        currentDate.getDate() -
+          currentDate.getDay() +
+          (currentDate.getDay() === 0 ? -6 : 1)
+      )
+    );
+    return firstDayOfWeek;
+  };
 
-//   const handleApartmentNumberChange = (event) => {
-//     setApartmentNumber(event.target.value);
-//   };
+  const [currentWeek] = useState(getWeeksFirstDay());
 
-//   const handleBooking = () => {
-//     if (!selectedDate || !selectedTime || !apartmentNumber) {
-//       alert('Täytä kaikki kentät: päivämäärä, aika ja asuntonumero.');
-//       return;
-//     }
+  const days = [
+    'Maanantai',
+    'Tiistai',
+    'Keskiviikko',
+    'Torstai',
+    'Perjantai',
+    'Lauantai',
+    'Sunnuntai',
+  ];
 
-//     const formattedDate = selectedDate.toLocaleDateString('fi-FI');
+  const dateBoxes = days.map((day, index) => {
+    const date = new Date(
+      currentWeek.getTime() + 60 * 60 * 24 * index * 1000
+    ).toLocaleDateString();
+    return (
+      <div className="box" key={index}>
+        <p id="vkpaivat">{day}</p>
+        <p id="paivamaara">{date}</p>
+      </div>
+    );
+  });
 
-//     const existingBooking = bookings.find(
-//       (booking) =>
-//         booking.date === formattedDate && booking.time === selectedTime
-//     );
+  async function kellonAika() {
+    const aikavali = [];
 
-//     if (existingBooking && existingBooking.reserved) {
-//       alert('Aika on varattu, valitse toinen aika.');
-//       return;
-//     }
+    let alkuaika = 4;
+    let loppuaika = 7;
 
-//     const newBooking = {
-//       id: bookings.length + 1,
-//       time: selectedTime,
-//       date: formattedDate,
-//       reserved: true,
-//       apartmentNumber: parseInt(apartmentNumber),
-//     };
+    const data = await fetchBookings();
 
-//     setBookings([...bookings, newBooking]);
-//     setSelectedDate(null);
-//     setSelectedTime('');
-//     setApartmentNumber('');
-//   };
+    const bookings = data.map((booking) => ({
+      ind: booking.ind,
+      apartment_number: booking.apartment_number,
+    }));
 
-//   const handleCancel = (id) => {
-//     const index = bookings.findIndex((booking) => booking.id === id);
-//     const updatedBooking = Object.assign({}, bookings[index], {
-//       reserved: false,
-//     });
-//     const updatedBookings = bookings.slice();
-//     updatedBookings[index] = updatedBooking;
-//     setBookings(updatedBookings);
-//   };
+    for (let i = 0; i < 35; i++) {
+      if (i % 7 == 0) {
+        alkuaika += 3;
+        loppuaika += 3;
+      }
 
-//   return (
-//     <div>
-//       <h2>Pyykkituvan varausjärjestelmä</h2>
-//       <form>
-//         <label>
-//           Päivämäärä:
-//           <DatePicker
-//             dateFormat="dd.MM.yyyy"
-//             selected={selectedDate}
-//             onChange={handleDateChange}
-//           />
-//         </label>
-//         <label>
-//           Aika:
-//           <select value={selectedTime} onChange={handleTimeChange}>
-//             <option value="">Valitse aika</option>
-//             <option value="10:00">10:00</option>
-//             <option value="12:00">12:00</option>
-//             <option value="14:00">14:00</option>
-//             <option value="16:00">16:00</option>
-//             <option value="18:00">18:00</option>
-//             <option value="20:00">20:00</option>
-//             <option value="22:00">22:00</option>
-//           </select>
-//         </label>
-//         <label>
-//           Asuntonumero:
-//           <input
-//             type="number"
-//             min="1"
-//             value={apartmentNumber}
-//             onChange={handleApartmentNumberChange}
-//           />
-//         </label>
-//         <button type="button" onClick={handleBooking}></button>
-//           Varaa aika
-//         </button>
-//       </form>
-//       <h3>Vapaat ajat:</h3>
-//       <ul>
-//         {bookings
-//           .filter((booking) => booking.reserved === false)
-//           .map((booking) => (
-//             <li key={booking.id}>
-//               {booking.date} klo {booking.time} - Asunto{' '}
-//               {booking.apartmentNumber}
-//               <button onClick={() => handleCancel(booking.id)}>Peruuta</button>
-//             </li>
-//           ))}
-//       </ul>
-//       <h3>Varatut ajat:</h3>
-//       <ul>
-//         {bookings
-//           .filter((booking) => booking.reserved === true)
-//           .map((booking) => (
-//             <li key={booking.id}>
-//               {booking.date} klo {booking.time} - Asunto{' '}
-//               {booking.apartmentNumber}
-//               <button onClick={() => handleCancel(booking.id)}>Peruuta</button>
-//             </li>
-//           ))}
-//       </ul>
-//     </div>
-//   );
-// }
+      let btnClassName = eiValittu;
+
+      if (data !== null) {
+        for (let b = 0; b < bookings.length; b++) {
+          if (bookings[b].ind === i) {
+            btnClassName = valittu;
+            break;
+          }
+        }
+      }
+
+      const napit = (
+        <button className={btnClassName} name={i} onClick={valinta}>
+          {alkuaika.toFixed(2)} - {loppuaika.toFixed(2)}
+        </button>
+      );
+
+      aikavali.push(napit);
+    }
+    setAikavali(aikavali);
+  }
+
+  useEffect(() => {
+    kellonAika();
+  }, []);
+
+  return (
+    <div>
+      <label className="apartment-number">
+        Asunnon numero
+        <input
+          className="apartment-number-input"
+          type="number"
+          onChange={(event) => updateApartmentNumber(event)}
+        />
+      </label>
+      <div className="wrapper">
+        {dateBoxes}
+        {aikavali}
+      </div>
+      <button className="btn-laundry" onClick={ajanvaraus}>
+        VARAA
+      </button>
+    </div>
+  );
+}
+
+function updateApartmentNumber(event) {
+  apartment_number = event.target.value;
+}
+
+async function fetchBookings() {
+  try {
+    const response = await fetch(`${BASE_URL}/${ENDPOINTS.sauna}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+  return null;
+}
+
+let varatut = [];
+
+function valinta(event) {
+  if (event.target.className === valittu) {
+    event.target.className = eiValittu;
+    varatut = varatut.filter((item) => item !== event.target.name);
+  } else {
+    event.target.className = valittu;
+    varatut.push(event.target.name);
+  }
+}
+
+async function ajanvaraus() {
+  try {
+    const promises = varatut.map(async (elem) => {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.laundry}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apartment_number,
+          ind: elem,
+        }),
+      });
+
+      if (response.status === 200) {
+        return 'Varaus onnistui!';
+      } else {
+        throw new Error(`Varaus epäonnistui: ${await response.json()}`);
+      }
+    });
+    const messages = await Promise.all(promises);
+    console.log(messages);
+  } catch (err) {
+    console.log(`Varaus epäonnistui: ${err.message}`);
+  }
+}

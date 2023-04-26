@@ -1,24 +1,21 @@
 header {
-  margin-top: 2em;
   margin-bottom: 2em;
-  margin-left: 1em;
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  text-align: center;
-  padding-left: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 2em;
   text-align: center;
 }
 
 .yhteystietoHeader {
-  margin-left: -5em;
-  text-align: center;
   text-decoration: underline;
 }
+
+.hallitus {
+  float: left;
+
+}
+
+.isannointiJaHuolto {
+  float: right;
+}
+
+
+
+

@@ -3,9 +3,9 @@
   color: var(--lepucki-white);
   padding: 5px 0;
   text-align: left;
-  display: flex;
+  position: fixed;
   width: 100%;
-  margin-top: auto;
+  margin: auto;
 }
 
 .footer-container {

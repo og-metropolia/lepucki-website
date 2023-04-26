@@ -20,19 +20,21 @@ export default function Yhteystiedot() {
 function People() {
   return (
     <div>
-      <ul className="yhteystietoHeader">
-        <h3>Hallitus</h3>
-        {hallitus.map((member) => (
-          <li key={member.id}>
-            <h4>{member.name}</h4>
-            <p>{member.role}</p>
-            <p>{member.email}</p>
-            <p>{member.phone}</p>
-          </li>
-        ))}
-      </ul>
-      <div className="yhteystietoHeader">
-        <h3>Isännöitsijä</h3>
+      <div className="hallitus">
+        <h3 className="yhteystietoHeader">Hallitus</h3>
+        <ul>
+          {hallitus.map((member) => (
+            <li key={member.id}>
+              <h4>{member.name}</h4>
+              <p>{member.role}</p>
+              <p>{member.email}</p>
+              <p>{member.phone}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="isannointiJaHuolto">
+        <h3 className="yhteystietoHeader">Isännöitsijä</h3>
         <ul>
           <li>
             <p>{isannointi.name}</p>
@@ -42,8 +44,8 @@ function People() {
           </li>
         </ul>
       </div>
-      <div className="yhteystietoHeader">
-        <h3>Huolto</h3>
+      <div className="isannointi&huolto">
+        <h3 className="yhteystietoHeader">Huolto</h3>
         <ul>
           <li>
             <p>{huolto.name}</p>
