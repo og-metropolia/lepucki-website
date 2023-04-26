@@ -72,6 +72,9 @@ export function queryRecordByAttribute(
     `SELECT * FROM ${tableName} WHERE ${fieldName} = ?`,
     [fieldValue],
     (err, results) => {
+      if (results.length === 0) {
+        response.status(200).json({ message: 'Record not found' });
+      }
       if (err) {
         console.log(err);
         return response.status(400).send();

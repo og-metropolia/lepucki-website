@@ -97,7 +97,7 @@ Example Response
 
 #### `GET users/{username}`
 
-Example Response
+Example Responses
 ```json
 {
   "id": 42,
@@ -105,6 +105,12 @@ Example Response
   "password": "foobar",
   "apartment_number": 123,
   "created_at": "2023-04-24T13:11:21.000Z"
+}
+```
+
+```json
+{
+  "message": "Record not found"
 }
 ```
 
@@ -173,6 +179,12 @@ Example Response
 }
 ```
 
+```json
+{
+  "message": "Record not found"
+}
+```
+
 #### `POST announcements/`
 
 Example Request Body
@@ -233,6 +245,12 @@ Example Response
 }
 ```
 
+```json
+{
+  "message": "Record not found"
+}
+```
+
 #### `POST laundry/`
 
 Example Request Body
@@ -290,6 +308,12 @@ Example Response
   "apartment_number": 12,
   "starting_at": "2023-04-25T07:20:45.000Z",
   "ending_at": "2023-04-25T08:20:45.000Z"
+}
+```
+
+```json
+{
+  "message": "Record not found"
 }
 ```
 
