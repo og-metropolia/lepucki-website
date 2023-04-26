@@ -5,14 +5,16 @@ export function isValidInt(value) {
 export function isValidVarchar(value, varcharLength) {
   return (
     typeof value === 'string' &&
-    value.length === varcharLength &&
-    value.length > 0 &&
-    value.length < 65535
+    value.length() === varcharLength &&
+    value.length() > 0 &&
+    value.length() < 65535
   );
 }
 
 export function isValidText(value) {
-  return typeof value === 'string' && value.length > 0 && value.length < 65535;
+  return (
+    typeof value === 'string' && value.length() > 0 && value.length() < 65535
+  );
 }
 
 export function isValidTimestamp(value) {
