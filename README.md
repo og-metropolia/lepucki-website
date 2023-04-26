@@ -26,8 +26,8 @@
 
 ## Local Development
 
-- You need to turn on Metropolia VPN to access the database.
-- You need to create `./.env` file with proper credentials.
+* You need to turn on Metropolia VPN to access the database.
+* You need to create `./.env` file with proper credentials.
 
 ```bash
 npm install
