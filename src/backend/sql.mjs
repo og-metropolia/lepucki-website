@@ -46,15 +46,30 @@ export function deleteRecord(conn, response, tableName, id) {
   }
 }
 
+export function queryRecordsAll(conn, response, tableName) {
+  try {
+    conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
+      if (err) {
+        console.log(err);
+        return response.status(400).send();
+      }
+      response.status(200).json(results);
+    });
+  } catch (err) {
+    console.log(err);
+    return response.status(500).send();
+  }
+}
+
 export function queryRecordByAttribute(
   conn,
   response,
-  table,
+  tableName,
   fieldName,
   fieldValue
 ) {
   conn.query(
-    `SELECT * FROM ${table} WHERE ${fieldName} = ?`,
+    `SELECT * FROM ${tableName} WHERE ${fieldName} = ?`,
     [fieldValue],
     (err, results) => {
       if (err) {

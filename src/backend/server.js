@@ -6,7 +6,12 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
-import { insertRecord, deleteRecord, queryRecordByAttribute } from './sql.mjs';
+import {
+  insertRecord,
+  deleteRecord,
+  queryRecordByAttribute,
+  queryRecordsAll,
+} from './sql.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -32,18 +37,7 @@ conn.connect((err) => {
 
 function getRecordsAll(endpoint, tableName) {
   app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
-    try {
-      conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results);
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send();
-    }
+    queryRecordsAll(conn, res, tableName);
   });
 }
 
