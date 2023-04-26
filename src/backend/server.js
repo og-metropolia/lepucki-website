@@ -6,7 +6,12 @@ import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';
 import TABLES from '../constants/tables.mjs';
-import { insertRecord, deleteRecord, queryRecordByAttribute } from './sql.mjs';
+import {
+  insertRecord,
+  deleteRecord,
+  queryRecordByAttribute,
+  queryRecordsAll,
+} from './sql.mjs';
 
 dotenv.config(); // loads env vars
 
@@ -32,18 +37,7 @@ conn.connect((err) => {
 
 function getRecordsAll(endpoint, tableName) {
   app.get(`/${API_PATH}/${endpoint}/`, async (req, res) => {
-    try {
-      conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(400).send();
-        }
-        res.status(200).json(results);
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send();
-    }
+    queryRecordsAll(conn, res, tableName);
   });
 }
 
@@ -80,13 +74,13 @@ function postUser() {
 
 function postAnnouncements() {
   app.post(`/${API_PATH}/${ENDPOINTS.announcements}`, async (req, res) => {
-    const { title, content, apartment_number } = req.body;
+    const { title, content, apartment_number, expiration_at } = req.body;
     return insertRecord(
       conn,
       res,
       TABLES.announcements,
-      'title, content, apartment_number',
-      [title, content, apartment_number]
+      'title, content, apartment_number, expiration_at',
+      [title, content, apartment_number, expiration_at]
     );
   });
 }
@@ -103,14 +97,22 @@ function postLaundry() {
 
 function postSauna() {
   app.post(`/${API_PATH}/${ENDPOINTS.sauna}`, async (req, res) => {
-    const { apartment_number, starting_at, ending_at } = req.body;
-    return insertRecord(
-      conn,
-      res,
-      TABLES.sauna,
-      'apartment_number, starting_at, ending_at',
-      [apartment_number, starting_at, ending_at]
-    );
+    const { apartment_number, ind } = req.body;
+    return insertRecord(conn, res, TABLES.sauna, 'apartment_number, ind', [
+      apartment_number,
+      ind,
+    ]);
+  });
+}
+
+function postContactForm() {
+  app.post(`/${API_PATH}/${ENDPOINTS.contact}`, async (req, res) => {
+    const { name, email, message } = req.body;
+    return insertRecord(conn, res, TABLES.contact, 'name, email, message', [
+      name,
+      email,
+      message,
+    ]);
   });
 }
 
@@ -134,6 +136,7 @@ postUser();
 postAnnouncements();
 postLaundry();
 postSauna();
+postContactForm();
 
 deleteRecordById(ENDPOINTS.users, TABLES.users);
 deleteRecordById(ENDPOINTS.announcements, TABLES.announcements);

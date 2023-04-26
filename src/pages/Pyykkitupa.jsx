@@ -1,21 +1,16 @@
 import React from 'react';
-// import Navi from '../components/Navi';
-//import LaundryBooking from '../components/LaundryBooking';
-import Gridi from '../components/Gristesti';
+import LaundryBooking from '../components/LaundryBooking';
 
 export default function Pyykkitupa() {
   return (
     <>
-      {/* <Navi /> */}
-      {/* {<LaundryBooking />} */}
-
       <main>
         <header>
-          <h1 className="login-text">Tervetuloa pyykkitupaan</h1>
-          <p>Olet nyt pyykkituvassa.</p>
+          <h1 className="login-text">Pyykkitupa</h1>
+          <p>Ajanvaraus</p>
         </header>
       </main>
-      {<Gridi />}
+      {<LaundryBooking />}
     </>
   );
 }

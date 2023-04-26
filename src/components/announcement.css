@@ -1,0 +1,28 @@
+.announcement {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--lepucki-orange);
+  color: var(--lepucki-black);
+  width: 100%;
+}
+
+.announcement h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--lepucki-blue);
+}
+
+.announcement p {
+  margin-bottom: 0.5rem;
+}
+
+.announcement strong {
+  color: #333;
+}
+
+.announcement .remaining-days {
+  color: var(--lepucki-gray);
+  font-size: 12px;
+}

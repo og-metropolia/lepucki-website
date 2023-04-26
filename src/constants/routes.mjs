@@ -3,6 +3,6 @@ export default Object.freeze({
   login: '/kirjaudu',
   home: '/ilmoitukset',
   sauna: '/sauna',
-  laundry: '/pyykkitapa',
+  laundry: '/pyykkitupa',
   contact: '/yhteystiedot',
 });

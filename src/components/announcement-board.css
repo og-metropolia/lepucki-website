@@ -1,12 +1,16 @@
+@import url('../assets/colors.css');
+
 body {
   font-family: Arial, sans-serif;
 }
 
 .announcement-board-container {
-  /* max-width: 800px; */
+  max-width: 800px;
   margin: 0 auto;
   padding: 1rem;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h2 {
@@ -16,19 +20,27 @@ h2 {
 
 form {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
 }
 
-input,
-textarea {
+.announcement-input {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
-  min-height: 38px;
+  min-height: 20px;
   resize: vertical;
+  height: 50px;
+  width: 300px;
+}
+
+.input-announcement-content {
+  height: 150px;
 }
 
 label {
@@ -47,6 +59,7 @@ label {
   font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .btn-announcement:hover {
@@ -62,33 +75,6 @@ hr {
 ul {
   list-style-type: none;
   padding: 0;
-}
-.announcement {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: #f8f9fa;
-}
-
-.announcement h4 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  color: #007bff;
-}
-
-.announcement p {
-  margin-bottom: 0.5rem;
-}
-
-.announcement strong {
-  color: #333;
-}
-
-.announcement .remaining-days {
-  color: #6c757d;
-}
-
-.announcement-input {
-  width: 300px;
+  width: 100%;
+  max-width: 600px;
 }

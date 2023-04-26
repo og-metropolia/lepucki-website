@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import path from '../constants/routes.mjs';
 import Register from '../components/Register.jsx';
+import AuthContext from '../auth/AuthContext';
 import './login.css';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
-export default function Login(props) {
-  const { setLogged } = props;
+export default function Login() {
+  const { setLogged } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setValid] = useState(false);
@@ -33,8 +34,8 @@ export default function Login(props) {
       const data = await response.json();
 
       if (inputUsername === data.username && inputPassword === data.password) {
-        history.push(path.home);
         setLogged(true);
+        history.push(path.home);
       } else {
         setValid(true);
       }
@@ -97,7 +98,6 @@ export default function Login(props) {
         </p>
       )}
 
-      {/* Lisää Luo käyttäjä -nappi */}
       <button onClick={openRegisterWindow}>Luo käyttäjä</button>
     </div>
   );
