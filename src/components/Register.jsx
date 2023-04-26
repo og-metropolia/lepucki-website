@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
+import './register.css';
 
 export default function Register({ onRegisterSuccess }) {
   const [username, setUsername] = useState('');
@@ -39,10 +40,11 @@ export default function Register({ onRegisterSuccess }) {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Rekisteröidy</h2>
-      <form onSubmit={handleRegister}>
+      <form className="register-form" onSubmit={handleRegister}>
         <input
+          className="register-input"
           type="text"
           placeholder="Syötä käyttäjänimi"
           value={username}
@@ -50,6 +52,7 @@ export default function Register({ onRegisterSuccess }) {
         />
         <br />
         <input
+          className="register-input"
           type="password"
           placeholder="Syötä salasana"
           value={password}
@@ -57,15 +60,18 @@ export default function Register({ onRegisterSuccess }) {
         />
         <br />
         <input
+          className="register-input"
           type="text"
           placeholder="Syötä asunnon numero"
           value={apartmentNumber}
           onChange={(e) => setApartmentNumber(e.target.value)}
         />
         <br />
-        <button type="submit">Rekisteröidy</button>
+        <button className="register-button" type="submit">
+          Rekisteröidy
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="register-message">{message}</p>}
     </div>
   );
 }

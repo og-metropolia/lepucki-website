@@ -17,43 +17,135 @@ export default function Yhteystiedot() {
   );
 }
 
+// function People() {
+//   return (
+//     <div className="yhteystiedot">
+//       <div className="hallitus">
+//         <h3 className="yhteystietoHeader">Hallitus</h3>
+//         <ul>
+//           {hallitus.map((member) => (
+//             <li key={member.id} className="hallitusLi">
+//               <img
+//                 src={member.image}
+//                 alt={member.name}
+//                 className="memberImage"
+//               />
+//               <h4>{member.name}</h4>
+//               <p>{member.role}</p>
+//               <a className="member-email" href="member.email">
+//                 {member.email}
+//               </a>
+//               <p>{member.phone}</p>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//       <div className="isannointiJaHuolto">
+//         <div className="isannointi">
+//           <h3 className="yhteystietoHeader">Isännöitsijä</h3>
+//           <img
+//             src={isannointi.image}
+//             alt="Isännöitsijä"
+//             className="isannointiImage"
+//           />
+//           <ul>
+//             <li>
+//               <p>{isannointi.name}</p>
+//               <p>{isannointi.address}</p>
+//               <p>{isannointi.email}</p>
+//               <p>{isannointi.phone}</p>
+//             </li>
+//           </ul>
+//         </div>
+//         <div className="huolto">
+//           <h3 className="yhteystietoHeader">Huolto</h3>
+//           <img src={huolto.image} alt="Huolto" className="huoltoImage" />
+//           <ul>
+//             <li>
+//               <p>{huolto.name}</p>
+//               <p>{huolto.address}</p>
+//               <p>{huolto.email}</p>
+//               <p>{huolto.phone}</p>
+//             </li>
+//           </ul>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
 function People() {
   return (
-    <div>
+    <div className="yhteystiedot">
       <div className="hallitus">
         <h3 className="yhteystietoHeader">Hallitus</h3>
-        <ul>
+        <div className="hallitus-members">
           {hallitus.map((member) => (
-            <li key={member.id}>
+            <div key={member.id} className="memebers-container">
+              <img
+                src={member.image}
+                alt={member.name}
+                className="memberImage"
+              />
               <h4>{member.name}</h4>
               <p>{member.role}</p>
-              <p>{member.email}</p>
-              <p>{member.phone}</p>
-            </li>
+              <a className="contact-link" href={`mailto:${member.email}`}>
+                {member.email}
+              </a>
+              <p>
+                <a className="contact-link" href={`tel:${member.phone}`}>
+                  {member.phone}
+                </a>
+              </p>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       <div className="isannointiJaHuolto">
-        <h3 className="yhteystietoHeader">Isännöitsijä</h3>
-        <ul>
-          <li>
-            <p>{isannointi.name}</p>
-            <p>{isannointi.address}</p>
-            <p>{isannointi.email}</p>
-            <p>{isannointi.phone}</p>
-          </li>
-        </ul>
-      </div>
-      <div className="isannointi&huolto">
-        <h3 className="yhteystietoHeader">Huolto</h3>
-        <ul>
-          <li>
-            <p>{huolto.name}</p>
-            <p>{huolto.address}</p>
-            <p>{huolto.email}</p>
-            <p>{huolto.phone}</p>
-          </li>
-        </ul>
+        <div className="isannointi">
+          <h3 className="yhteystietoHeader">Isännöitsijä</h3>
+          <img
+            src={isannointi.image}
+            alt="Isännöitsijä"
+            className="isannointiImage"
+          />
+          <ul>
+            <li>
+              <p>{isannointi.name}</p>
+              <p>{isannointi.address}</p>
+              <p>
+                <a className="contact-link" href={`mailto:${isannointi.email}`}>
+                  {isannointi.email}
+                </a>
+              </p>
+              <p>
+                <a className="contact-link" href={`tel:${isannointi.phone}`}>
+                  {isannointi.phone}
+                </a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div className="huolto">
+          <h3 className="yhteystietoHeader">Huolto</h3>
+          <img src={huolto.image} alt="Huolto" className="huoltoImage" />
+          <ul>
+            <li>
+              <p>{huolto.name}</p>
+              <p>{huolto.address}</p>
+              <p>
+                <a className="contact-link" href={`mailto:${huolto.email}`}>
+                  {huolto.email}
+                </a>
+              </p>
+              <p>
+                <a className="contact-link" href={`tel:${huolto.phone}`}>
+                  {huolto.phone}
+                </a>
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

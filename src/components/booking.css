@@ -41,6 +41,7 @@
 
 .apartment-number-input {
   max-width: 100px;
+  margin-top: 3px;
 }
 
 .apartment-number {
@@ -53,7 +54,7 @@
 .btn-laundry {
   background-color: #007bff;
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   border-radius: 4px;
   border: none;
   font-size: 1rem;
@@ -62,9 +63,14 @@
   display: flex;
   justify-content: center;
   margin: auto;
-  margin-top: -2em;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 .btn-laundry:hover {
   background-color: #0056b3;
+}
+
+p {
+  text-align: center;
 }

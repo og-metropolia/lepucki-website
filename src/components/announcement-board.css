@@ -4,6 +4,10 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.announcement-header {
+  margin: 1em;
+}
+
 .announcement-board-container {
   max-width: 800px;
   margin: 0 auto;
@@ -51,15 +55,15 @@ label {
 }
 
 .btn-announcement {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--lepucki-blue);
+  color: var(--lepucki-white);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn-announcement:hover {

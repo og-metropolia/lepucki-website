@@ -6,7 +6,7 @@ export default function Sauna() {
     <>
       <main>
         <header>
-          <h1 className="login-text">Tervetuloa saunaan!</h1>
+          <h1 className="login-text">Saunan ajanvaraus</h1>
         </header>
       </main>
       {<SaunaBooking />}
