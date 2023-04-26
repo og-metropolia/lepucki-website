@@ -1,28 +1,28 @@
 # Lepucki
 
-- [Local Development](#local-development)
-- [Tech and Tools](#tech-and-tools)
-- [REST API](#rest-api)
-  - [Users](#users)
-    - [`GET users/`](#get-users)
-    - [`GET users/{username}`](#get-usersusername)
-    - [`POST users/`](#post-users)
-    - [`DELETE users/{id}`](#delete-usersid)
-  - [Announcements](#announcements)
-    - [`GET announcements/`](#get-announcements)
-    - [`GET announcements/{id}`](#get-announcementsid)
-    - [`POST announcements/`](#post-announcements)
-    - [`DELETE announcement/{id}`](#delete-announcementid)
-  - [Laundry](#laundry)
-    - [`GET laundry/`](#get-laundry)
-    - [`GET laundry/{id}`](#get-laundryid)
-    - [`POST laundry/`](#post-laundry)
-    - [`DELETE laundry/{id}`](#delete-laundryid)
-  - [Sauna](#sauna)
-    - [`GET sauna/`](#get-sauna)
-    - [`GET sauna/{id}`](#get-saunaid)
-    - [`POST sauna/`](#post-sauna)
-    - [`DELETE sauna/{id}`](#delete-saunaid)
+* [Local Development](#local-development)
+* [Tech and Tools](#tech-and-tools)
+* [REST API](#rest-api)
+  * [Users](#users)
+    * [`GET users/`](#get-users)
+    * [`GET users/{username}`](#get-usersusername)
+    * [`POST users/`](#post-users)
+    * [`DELETE users/{id}`](#delete-usersid)
+  * [Announcements](#announcements)
+    * [`GET announcements/`](#get-announcements)
+    * [`GET announcements/{id}`](#get-announcementsid)
+    * [`POST announcements/`](#post-announcements)
+    * [`DELETE announcement/{id}`](#delete-announcementid)
+  * [Laundry](#laundry)
+    * [`GET laundry/`](#get-laundry)
+    * [`GET laundry/{id}`](#get-laundryid)
+    * [`POST laundry/`](#post-laundry)
+    * [`DELETE laundry/{id}`](#delete-laundryid)
+  * [Sauna](#sauna)
+    * [`GET sauna/`](#get-sauna)
+    * [`GET sauna/{id}`](#get-saunaid)
+    * [`POST sauna/`](#post-sauna)
+    * [`DELETE sauna/{id}`](#delete-saunaid)
 
 ## Local Development
 
@@ -102,7 +102,7 @@ Example Response
 
 #### `GET users/{username}`
 
-Example Responses
+Example Responsess
 
 ```json
 {
