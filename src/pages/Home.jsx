@@ -5,12 +5,6 @@ import './home.css';
 export default function Home() {
   return (
     <>
-      <main>
-        <header>
-          <h1 className="login-text">Tervetuloa sisään!</h1>
-          <p>Olet nyt kirjautunut sisään.</p>
-        </header>
-      </main>
       <AnnouncementBoard />
     </>
   );

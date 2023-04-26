@@ -1,6 +1,6 @@
+import './announcement-board.css';
 import React, { useState, useEffect } from 'react';
 import Announcement from './Announcement';
-import './AnnouncementBoard.css';
 import { ENDPOINTS, BASE_URL } from '../constants/api.mjs';
 import { millisecond2Day } from '../utils/time.mjs';
 
@@ -13,17 +13,15 @@ export default function AnnouncementBoard() {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
-    fetchAnnouncements();
-    // const interval = setInterval(() => {
-    //   setAnnouncements((announcements) =>
-    //     announcements.filter((announcement) => {
-    //       new Date(announcement.expiration_at) > new Date();
-    //     })
-    //   );
-    //   setAnnouncements(announcements);
-    // }, 1000);
+    const interval = setInterval(() => {
+      fetchAnnouncements((announcements) =>
+        announcements.filter((announcement) => {
+          new Date(announcement.expiration_at).getTime() > new Date().getTime();
+        })
+      );
+    }, 1000);
 
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchAnnouncements = async () => {
@@ -44,7 +42,7 @@ export default function AnnouncementBoard() {
   const validateFields = () => {
     if (!title || !content || !apartment_number || !duration) {
       alert(
-        'Täytä kaikki kentät: otsikko, teksti, lähettäjä ja voimassaoloaika.'
+        'Täytä kaikki kentät: otsikko, teksti, asuntunumero ja voimassaoloaika.'
       );
       return false;
     }
@@ -59,13 +57,15 @@ export default function AnnouncementBoard() {
     }
 
     const newAnnouncement = {
-      // id: announcements.length + 1,
       title,
       content,
       apartment_number,
       expiration_at: new Date(
         new Date().getTime() + millisecond2Day(parseInt(duration))
-      ),
+      )
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
     };
 
     try {
@@ -96,7 +96,7 @@ export default function AnnouncementBoard() {
 
   return (
     <div className="announcement-board-container">
-      <h2>Ilmoitustaulu</h2>
+      <h1>Ilmoitustaulu</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Otsikko:
@@ -111,7 +111,7 @@ export default function AnnouncementBoard() {
         <label>
           Teksti:
           <textarea
-            className="announcement-input"
+            className="announcement-input input-announcement-content"
             value={content}
             onChange={(event) => setContent(event.target.value)}
           />
@@ -145,17 +145,9 @@ export default function AnnouncementBoard() {
       <h3>Ilmoitukset:</h3>
       <ul>
         {announcements.map((announcement) => (
-          // getRemainingDays(announcement.expiration_at) > 0 ?
           <Announcement key={announcement.id} announcement={announcement} />
         ))}
       </ul>
     </div>
   );
 }
-
-// const getRemainingDays = (epochTime) => {
-//   const timeDifference =
-//     new Date(expiration_at).getTime() - new Date().getTime();
-//   const daysDifference = Math.ceil(timeDifference / millisecond2Day(1));
-//   return daysDifference > 0 ? daysDifference : 0;
-// };

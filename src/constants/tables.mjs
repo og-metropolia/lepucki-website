@@ -3,4 +3,5 @@ export default Object.freeze({
   announcements: 'announcements',
   laundry: 'laundry',
   sauna: 'sauna',
+  contact: 'contact_form',
 });

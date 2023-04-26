@@ -24,11 +24,10 @@
     * [`POST sauna/`](#post-sauna)
     * [`DELETE sauna/{id}`](#delete-saunaid)
 
-
 ## Local Development
 
-* You need to turn on Metropolia VPN to access the database.
-* You need to create `./.env` file with proper credentials.
+- You need to turn on Metropolia VPN to access the database.
+- You need to create `./.env` file with proper credentials.
 
 ```bash
 npm install
@@ -37,18 +36,19 @@ npm start
 
 <!-- TODO: image of website -->
 
-* http://localhost:5173 for React website
-* http://localhost:3000 for REST API
+- http://localhost:5173 for React website
+- http://localhost:3000 for REST API
 
 ## Tech and Tools
-* React
-* Express
-* MySQL
-* Vite
-* Eslint
-* Prettier
-* Jest
-* JSDoc
+
+- React
+- Express
+- MySQL
+- Vite
+- Eslint
+- Prettier
+- Jest
+- JSDoc
 
 ## REST API
 
@@ -66,6 +66,7 @@ Base URL: http://localhost:3000/api/v0/
 #### `GET users/`
 
 Example Response
+
 ```json
 [
   {
@@ -101,7 +102,7 @@ Example Response
 
 #### `GET users/{username}`
 
-Example Responses
+Example Response
 ```json
 {
   "id": 42,
@@ -121,6 +122,7 @@ Example Responses
 #### `POST users/`
 
 Example Request Body
+
 ```json
 {
   "username": "janedoe",
@@ -130,6 +132,7 @@ Example Request Body
 ```
 
 Example Response
+
 ```json
 {
   "message": "Record created successfully!"
@@ -138,7 +141,8 @@ Example Response
 
 #### `DELETE users/{id}`
 
-Example Response
+Example Responses
+
 ```json
 {
   "message": "Record deleted successfully!"
@@ -146,9 +150,11 @@ Example Response
 ```
 
 ### Announcements
+
 #### `GET announcements/`
 
 Example Response
+
 ```json
 [
   {
@@ -162,7 +168,8 @@ Example Response
   {
     "id": 2,
     "title": "Another Announcement",
-    "content": "content content content content content content content content content","apartment_number": 598,
+    "content": "content content content content content content content content content",
+    "apartment_number": 598,
     "created_at": "2023-04-24T12:12:46.000Z",
     "expiration_at": "2023-04-24T12:13:46.000Z"
   }
@@ -171,7 +178,8 @@ Example Response
 
 #### `GET announcements/{id}`
 
-Example Response
+Example Responses
+
 ```json
 {
   "id": 1,
@@ -192,6 +200,7 @@ Example Response
 #### `POST announcements/`
 
 Example Request Body
+
 ```json
 {
   "title": "2023-04-24T12:15:14",
@@ -201,6 +210,7 @@ Example Request Body
 ```
 
 Example Response
+
 ```json
 {
   "message": "Record created successfully!"
@@ -210,6 +220,7 @@ Example Response
 #### `DELETE announcement/{id}`
 
 Example Response
+
 ```json
 {
   "message": "Record deleted successfully!"
@@ -217,9 +228,11 @@ Example Response
 ```
 
 ### Laundry
+
 #### `GET laundry/`
 
 Example Response
+
 ```json
 [
   {
@@ -239,7 +252,8 @@ Example Response
 
 #### `GET laundry/{id}`
 
-Example Response
+Example Responses
+
 ```json
 {
   "id": 1,
@@ -258,6 +272,7 @@ Example Response
 #### `POST laundry/`
 
 Example Request Body
+
 ```json
 {
   "apartment_number": 598,
@@ -267,6 +282,7 @@ Example Request Body
 ```
 
 Example Response
+
 ```json
 {
   "message": "Record created successfully!"
@@ -276,6 +292,7 @@ Example Response
 #### `DELETE laundry/{id}`
 
 Example Response
+
 ```json
 {
   "message": "Record deleted successfully!"
@@ -283,9 +300,11 @@ Example Response
 ```
 
 ### Sauna
+
 #### `GET sauna/`
 
 Example Response
+
 ```json
 [
   {
@@ -305,7 +324,8 @@ Example Response
 
 #### `GET sauna/{id}`
 
-Example Response
+Example Responses
+
 ```json
 {
   "id": 1,
@@ -324,6 +344,7 @@ Example Response
 #### `POST sauna/`
 
 Example Request Body
+
 ```json
 {
   "apartment_number": 598,
@@ -333,6 +354,7 @@ Example Request Body
 ```
 
 Example Response
+
 ```json
 {
   "message": "Record created successfully!"
@@ -342,6 +364,7 @@ Example Response
 #### `DELETE sauna/{id}`
 
 Example Response
+
 ```json
 {
   "message": "Record deleted successfully!"
