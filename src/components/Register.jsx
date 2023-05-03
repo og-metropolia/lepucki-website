@@ -2,6 +2,14 @@ import { useState } from 'react';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 import './register.css';
 
+/**
+Register-komponentti mahdollistaa käyttäjän rekisteröitymisen järjestelmään.
+@component
+@param {Object} props - Komponentin propsit.
+@param {function} props.onRegisterSuccess - Funktio, joka suoritetaan rekisteröinnin onnistumisen jälkeen.
+@returns {JSX.Element} Register-komponentti.
+*/
+
 export default function Register({ onRegisterSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

@@ -7,6 +7,13 @@ import AuthContext from '../auth/AuthContext';
 import './login.css';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
+/**
+Login-komponentti mahdollistaa käyttäjien kirjautumisen sovellukseen ja ohjaa heidät etusivulle onnistuneen kirjautumisen jälkeen.
+Komponentissa on myös rekisteröitymispainike uusille käyttäjille.
+@component
+@returns {JSX.Element} Login-komponentti.
+*/
+
 export default function Login() {
   const { setLogged } = useContext(AuthContext);
   const [username, setUsername] = useState('');

@@ -3,6 +3,13 @@ import { hallitus, huolto, isannointi } from '../data/people';
 import Contact from '../components/contact';
 import './yhteystiedot.css';
 
+/**
+ * Yhteystiedot()-funktio palauttaa sivun,
+ * joka käyttää elementteinä People ja Contact moduulit
+ * @component
+ * @returns {JSX.Element} Yhteystiedot-komponentti.
+ */
+
 export default function Yhteystiedot() {
   return (
     <>
@@ -17,63 +24,11 @@ export default function Yhteystiedot() {
   );
 }
 
-// function People() {
-//   return (
-//     <div className="yhteystiedot">
-//       <div className="hallitus">
-//         <h3 className="yhteystietoHeader">Hallitus</h3>
-//         <ul>
-//           {hallitus.map((member) => (
-//             <li key={member.id} className="hallitusLi">
-//               <img
-//                 src={member.image}
-//                 alt={member.name}
-//                 className="memberImage"
-//               />
-//               <h4>{member.name}</h4>
-//               <p>{member.role}</p>
-//               <a className="member-email" href="member.email">
-//                 {member.email}
-//               </a>
-//               <p>{member.phone}</p>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//       <div className="isannointiJaHuolto">
-//         <div className="isannointi">
-//           <h3 className="yhteystietoHeader">Isännöitsijä</h3>
-//           <img
-//             src={isannointi.image}
-//             alt="Isännöitsijä"
-//             className="isannointiImage"
-//           />
-//           <ul>
-//             <li>
-//               <p>{isannointi.name}</p>
-//               <p>{isannointi.address}</p>
-//               <p>{isannointi.email}</p>
-//               <p>{isannointi.phone}</p>
-//             </li>
-//           </ul>
-//         </div>
-//         <div className="huolto">
-//           <h3 className="yhteystietoHeader">Huolto</h3>
-//           <img src={huolto.image} alt="Huolto" className="huoltoImage" />
-//           <ul>
-//             <li>
-//               <p>{huolto.name}</p>
-//               <p>{huolto.address}</p>
-//               <p>{huolto.email}</p>
-//               <p>{huolto.phone}</p>
-//             </li>
-//           </ul>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
+/**
+ * Taloyhtiän henkilöstö.
+ * @component
+ * @returns {JSX.Element} People-komponentti.
+ */
 function People() {
   return (
     <div className="yhteystiedot">

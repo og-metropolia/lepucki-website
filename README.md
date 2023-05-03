@@ -1,40 +1,74 @@
 # Lepucki
 
-* [Local Development](#local-development)
-* [Tech and Tools](#tech-and-tools)
-* [REST API](#rest-api)
-  * [Users](#users)
-    * [`GET users/`](#get-users)
-    * [`GET users/{username}`](#get-usersusername)
-    * [`POST users/`](#post-users)
-    * [`DELETE users/{id}`](#delete-usersid)
-  * [Announcements](#announcements)
-    * [`GET announcements/`](#get-announcements)
-    * [`GET announcements/{id}`](#get-announcementsid)
-    * [`POST announcements/`](#post-announcements)
-    * [`DELETE announcement/{id}`](#delete-announcementid)
-  * [Laundry](#laundry)
-    * [`GET laundry/`](#get-laundry)
-    * [`GET laundry/{id}`](#get-laundryid)
-    * [`POST laundry/`](#post-laundry)
-    * [`DELETE laundry/{id}`](#delete-laundryid)
-  * [Sauna](#sauna)
-    * [`GET sauna/`](#get-sauna)
-    * [`GET sauna/{id}`](#get-saunaid)
-    * [`POST sauna/`](#post-sauna)
-    * [`DELETE sauna/{id}`](#delete-saunaid)
+- [Showcase](#showcase)
+  - [Front Page](#front-page)
+  - [Login](#login)
+  - [Announcement Board](#announcement-board)
+  - [Contact](#contact)
+  - [Sauna](#sauna)
+  - [Laundry](#laundry)
+- [Local Development](#local-development)
+- [Tech and Tools](#tech-and-tools)
+- [REST API](#rest-api)
+  - [Users](#users)
+    - [`GET users/`](#get-users)
+    - [`GET users/{username}`](#get-usersusername)
+    - [`POST users/`](#post-users)
+    - [`DELETE users/{id}`](#delete-usersid)
+  - [Announcements](#announcements)
+    - [`GET announcements/`](#get-announcements)
+    - [`GET announcements/{id}`](#get-announcementsid)
+    - [`POST announcements/`](#post-announcements)
+    - [`DELETE announcement/{id}`](#delete-announcementid)
+  - [Laundry](#laundry-1)
+    - [`GET laundry/`](#get-laundry)
+    - [`GET laundry/{id}`](#get-laundryid)
+    - [`POST laundry/`](#post-laundry)
+    - [`DELETE laundry/{id}`](#delete-laundryid)
+  - [Sauna](#sauna-1)
+    - [`GET sauna/`](#get-sauna)
+    - [`GET sauna/{id}`](#get-saunaid)
+    - [`POST sauna/`](#post-sauna)
+    - [`DELETE sauna/{id}`](#delete-saunaid)
+
+## Showcase
+
+### Front Page
+
+![front page](./images/front_01.jpg)
+
+![footer](./images/front_02.jpg)
+
+### Login
+
+![login page](./images/login.png)
+
+### Announcement Board
+
+![announcement_01](./images/announcement_01.png)
+![announcement_02](./images/announcement_02.png)
+
+### Contact
+
+![contact](./images/contact.png)
+
+### Sauna
+
+![sauna page](./images/sauna.png)
+
+### Laundry
+
+![laundry page](./images/laundry.png)
 
 ## Local Development
 
-* You need to turn on Metropolia VPN to access the database.
-* You need to create `./.env` file with proper credentials.
+- You need to turn on Metropolia VPN to access the database.
+- You need to create `./.env` file with proper credentials.
 
 ```bash
 npm install
 npm start
 ```
-
-<!-- TODO: image of website -->
 
 - http://localhost:5173 for React website
 - http://localhost:3000 for REST API
@@ -51,13 +85,6 @@ npm start
 - JSDoc
 
 ## REST API
-
-<!--
-GET
-POST
-PUT, PATCH
-DELETE
--->
 
 Base URL: http://localhost:3000/api/v0/
 

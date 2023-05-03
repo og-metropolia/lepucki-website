@@ -1,3 +1,19 @@
+/**
+ * @fileoverview
+ * Tämä moduuli sisältää neljä funktiota tietokannan käsittelyyn.
+ * insertRecord, deleteRecord, queryRecordsAll ja queryRecordByAttribute
+ * ovat yleiskäyttöisiä funktioita, jotka voidaan soveltaa eri tietokantataulujen kanssa.
+ */
+
+/**
+ * Luo uuden tietueen tietokantatauluun.
+ *
+ * @param {Object} conn - Tietokantayhteys
+ * @param {Object} response - HTTP-vastaus
+ * @param {string} tableName - Tietokantataulun nimi
+ * @param {string} fieldNames - Kenttien nimet, eroteltu pilkulla
+ * @param {Array} fieldValues - Kenttien arvot
+ */
 export function insertRecord(
   conn,
   response,
@@ -29,6 +45,14 @@ export function insertRecord(
   }
 }
 
+/**
+ * Poistaa tietueen tietokantataulusta annetun id:n perusteella.
+ *
+ * @param {Object} conn - Tietokantayhteys
+ * @param {Object} response - HTTP-vastaus
+ * @param {string} tableName - Tietokantataulun nimi
+ * @param {number} id - Poistettavan tietueen id
+ */
 export function deleteRecord(conn, response, tableName, id) {
   try {
     conn.query(`DELETE FROM ${tableName} WHERE id = ?`, id, (err) => {
@@ -46,6 +70,13 @@ export function deleteRecord(conn, response, tableName, id) {
   }
 }
 
+/**
+ * Hakee kaikki tietueet tietokantataulusta.
+ *
+ * @param {Object} conn - Tietokantayhteys
+ * @param {Object} response - HTTP-vastaus
+ * @param {string} tableName - Tietokantataulun nimi
+ */
 export function queryRecordsAll(conn, response, tableName) {
   try {
     conn.query(`SELECT * FROM ${tableName}`, (err, results) => {
@@ -61,6 +92,15 @@ export function queryRecordsAll(conn, response, tableName) {
   }
 }
 
+/**
+ * Hakee tietueen tietokantataulusta annetun kentän arvon perusteella.
+ *
+ * @param {Object} conn - Tietokantayhteys
+ * @param {Object} response - HTTP-vastaus
+ * @param {string} tableName - Tietokantataulun nimi
+ * @param {string} fieldName - Kentän nimi
+ * @param {*} fieldValue - Kentän arvo
+ */
 export function queryRecordByAttribute(
   conn,
   response,

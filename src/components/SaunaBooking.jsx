@@ -7,6 +7,15 @@ let apartment_number = null;
 const valittu = 'kellonaikaButton valittu';
 const eiValittu = 'kellonaikaButton eivalittu';
 
+/**
+ * SaunaBooking-komponentti, joka mahdollistaa saunan varaamisen
+ * käyttäjille eri aikaväleillä.
+ *
+ * @component
+ * @returns {JSX.Element} SaunaBooking-komponentti, joka sisältää varauslogiikan
+ * ja käyttöliittymän.
+ */
+
 export default function SaunaBooking() {
   const [aikavali, setAikavali] = useState([]);
 
@@ -112,9 +121,21 @@ export default function SaunaBooking() {
   );
 }
 
+/**
+ * Päivittää asunnon numeron käyttäjän syöttämän arvon mukaan.
+ *
+ * @param {Event} event - onChange-tapahtuma, joka sisältää käyttäjän syöttämän arvon.
+ */
+
 function updateApartmentNumber(event) {
   apartment_number = event.target.value;
 }
+
+/**
+ * Hakee saunan varaukset palvelimelta.
+ *
+ * @returns {Promise<Array>} Saunan varaukset sisältävä taulukko tai null, jos haku epäonnistui.
+ */
 
 async function fetchBookings() {
   try {
@@ -144,6 +165,12 @@ function valinta(event) {
     varatut.push(event.target.name);
   }
 }
+
+/**
+ * Tekee saunan varauksen palvelimelle.
+ *
+ * @returns {Promise<void>} Ei palauta arvoa. Jos varaus epäonnistuu, näyttää virheilmoituksen konsolissa.
+ */
 async function ajanvaraus() {
   try {
     const promises = varatut.map(async (elem) => {

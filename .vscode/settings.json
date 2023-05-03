@@ -7,5 +7,6 @@
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "markdown.extension.toc.levels": "2..6"
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.toc.unorderedList.marker": "-"
 }

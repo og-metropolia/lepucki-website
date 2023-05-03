@@ -1,12 +1,23 @@
 import { createContext, useState, useEffect } from 'react';
 
+/**
+ * AuthContext on luotu käyttämällä createContext()-funktiota, joka tarjoaa
+ * kontekstin sovelluksen sisällä toteutettavaa käyttäjän autentikointia varten.
+ *
+ * AuthProvider-komponentti käärii ja tarjoaa kontekstin sovelluksen
+ * osille, jotta ne voivat käyttää ja muuttaa käyttäjän autentikoinnin tilaa.
+ * Tämä komponentti käyttää paikallista tilaa (useState) ja sivuvaikutuksia
+ * (useEffect) autentikointitilan hallintaan ja tallentamiseen paikallisesti
+ * (localStorage).
+ *
+ * @component
+ * @returns {JSX.Element} AuthContext-komponentti.
+ */
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLogged, setLogged] = useState(false);
-
-  // console.log(`isLogged : ${isLogged}`);
-  // console.log('@ AuthContext.jsx');
 
   useEffect(() => {
     const storedIsLogged = localStorage.getItem('isLogged');

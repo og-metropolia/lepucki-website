@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/SaunaBooking.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/SaunaBooking.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './booking.css';
+import React, { useState, useEffect } from 'react';
+import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
+
+let apartment_number = null;
+
+const valittu = 'kellonaikaButton valittu';
+const eiValittu = 'kellonaikaButton eivalittu';
+
+/**
+ * SaunaBooking-komponentti, joka mahdollistaa saunan varaamisen
+ * käyttäjille eri aikaväleillä.
+ *
+ * @component
+ * @returns {JSX.Element} SaunaBooking-komponentti, joka sisältää varauslogiikan
+ * ja käyttöliittymän.
+ */
+
+export default function SaunaBooking() {
+  const [aikavali, setAikavali] = useState([]);
+
+  const getWeeksFirstDay = () => {
+    const currentDate = new Date();
+    const firstDayOfWeek = new Date(
+      currentDate.setDate(
+        currentDate.getDate() -
+          currentDate.getDay() +
+          (currentDate.getDay() === 0 ? -6 : 1)
+      )
+    );
+    return firstDayOfWeek;
+  };
+
+  const [currentWeek] = useState(getWeeksFirstDay());
+
+  const days = [
+    'Maanantai',
+    'Tiistai',
+    'Keskiviikko',
+    'Torstai',
+    'Perjantai',
+    'Lauantai',
+    'Sunnuntai',
+  ];
+
+  const dateBoxes = days.map((day, index) => {
+    const date = new Date(
+      currentWeek.getTime() + 60 * 60 * 24 * index * 1000
+    ).toLocaleDateString();
+    return (
+      &lt;div className="box" key={index}>
+        &lt;p id="vkpaivat">{day}&lt;/p>
+        &lt;p id="paivamaara">{date}&lt;/p>
+      &lt;/div>
+    );
+  });
+
+  async function kellonAika() {
+    const aikavali = [];
+
+    let alkuaika = 15;
+    let loppuaika = 16;
+
+    const data = await fetchBookings();
+
+    const bookings = data.map((booking) => ({
+      ind: booking.ind,
+      apartment_number: booking.apartment_number,
+    }));
+
+    for (let i = 0; i &lt; 42; i++) {
+      if (i % 7 == 0) {
+        alkuaika += 1;
+        loppuaika += 1;
+      }
+
+      let btnClassName = eiValittu;
+
+      if (data !== null) {
+        for (let b = 0; b &lt; bookings.length; b++) {
+          if (bookings[b].ind === i) {
+            btnClassName = valittu;
+            break;
+          }
+        }
+      }
+
+      const napit = (
+        &lt;button className={btnClassName} name={i} onClick={valinta}>
+          {alkuaika.toFixed(2)} - {loppuaika.toFixed(2)}
+        &lt;/button>
+      );
+
+      aikavali.push(napit);
+    }
+    setAikavali(aikavali);
+  }
+
+  useEffect(() => {
+    kellonAika();
+  }, []);
+
+  return (
+    &lt;div>
+      &lt;label className="apartment-number">
+        Asunnon numero
+        &lt;input
+          className="apartment-number-input"
+          type="number"
+          onChange={(event) => updateApartmentNumber(event)}
+        />
+      &lt;/label>
+      &lt;div className="wrapper">
+        {dateBoxes}
+        {aikavali}
+      &lt;/div>
+      &lt;button className="btn-laundry" onClick={ajanvaraus}>
+        Varaa aika
+      &lt;/button>
+    &lt;/div>
+  );
+}
+
+/**
+ * Päivittää asunnon numeron käyttäjän syöttämän arvon mukaan.
+ *
+ * @param {Event} event - onChange-tapahtuma, joka sisältää käyttäjän syöttämän arvon.
+ */
+
+function updateApartmentNumber(event) {
+  apartment_number = event.target.value;
+}
+
+/**
+ * Hakee saunan varaukset palvelimelta.
+ *
+ * @returns {Promise&lt;Array>} Saunan varaukset sisältävä taulukko tai null, jos haku epäonnistui.
+ */
+
+async function fetchBookings() {
+  try {
+    const response = await fetch(`${BASE_URL}/${ENDPOINTS.sauna}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+  return null;
+}
+
+let varatut = [];
+
+function valinta(event) {
+  if (event.target.className === valittu) {
+    event.target.className = eiValittu;
+    varatut = varatut.filter((item) => item !== event.target.name);
+  } else {
+    event.target.className = valittu;
+    varatut.push(event.target.name);
+  }
+}
+
+/**
+ * Tekee saunan varauksen palvelimelle.
+ *
+ * @returns {Promise&lt;void>} Ei palauta arvoa. Jos varaus epäonnistuu, näyttää virheilmoituksen konsolissa.
+ */
+async function ajanvaraus() {
+  try {
+    const promises = varatut.map(async (elem) => {
+      const response = await fetch(`${BASE_URL}/${ENDPOINTS.sauna}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apartment_number,
+          ind: elem,
+        }),
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`Varaus epäonnistui: ${await response.json()}`);
+      }
+    });
+    await Promise.all(promises);
+  } catch (err) {
+    console.log(`Varaus epäonnistui: ${err.message}`);
+    return;
+  }
+  alert('Varaus onnistui!');
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-contactData.html">contactData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AuthContext">AuthContext</a></li><li><a href="global.html#LogButton">LogButton</a></li><li><a href="global.html#LoggedNavLinks">LoggedNavLinks</a></li><li><a href="global.html#People">People</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#ajanvaraus">ajanvaraus</a></li><li><a href="global.html#fetchBookings">fetchBookings</a></li><li><a href="global.html#updateApartmentNumber">updateApartmentNumber</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 16:51:38 GMT+0300 (Eastern European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
