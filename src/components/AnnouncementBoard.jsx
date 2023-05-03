@@ -4,6 +4,18 @@ import Announcement from './Announcement';
 import { ENDPOINTS, BASE_URL } from '../constants/api.mjs';
 import { millisecond2Day } from '../utils/time.mjs';
 
+/**
+ * AnnouncementBoard-komponentti, joka sisältää ilmoitustaulun,
+ * jossa käyttäjät voivat lisätä ilmoituksia. Komponentti hakee ilmoitukset
+ * palvelimelta useEffect-hookin avulla ja käyttää sisäistä tilaa ilmoitusten
+ * ja lomakkeen kenttien säilyttämiseen. handleSubmit-funktio käsittelee
+ * uuden ilmoituksen lisäämisen ja tallentamisen palvelimelle.
+ *
+ * @component
+ * @returns {JSX.Element} AnnouncementBoard-komponentti.
+ */
+
+
 export default function AnnouncementBoard() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');

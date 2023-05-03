@@ -1,6 +1,21 @@
 import React from 'react';
 import './etusivu.css';
 
+/**
+ * Etusivu-komponentti luo sivuston etusivun, joka sisältää tietoa taloyhtiöstä,
+ * asumisen palveluista ja ympäröivästä alueesta.
+ *
+ * Komponentti käyttää Reactin fragmenttia (<>) usean elementin ryhmittämiseen.
+ * Sisältö koostuu otsikoista, tekstikappaleista ja kuvista, jotka on järjestetty
+ * etusivu-container- ja etusivu-content-luokkien avulla.
+ *
+ * Etusivu on yksi sivuston "sivuista" (pages) ja se voi olla osa monisivuista
+ * sovellusta tai yksittäinen sivu staattisessa verkkosivustossa.
+ *
+@component
+@returns {JSX.Element} Etusivu-komponentti.
+*/
+
 export default function Etusivu() {
   return (
     <>

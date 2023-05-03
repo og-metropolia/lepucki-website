@@ -6,6 +6,12 @@ import path from '../constants/routes.mjs';
 import './navi.css';
 import AuthContext from '../auth/AuthContext';
 
+/**
+
+Navi-komponentti luo navigaatiopalkin sovellukselle.
+@component
+@returns {JSX.Element} Navi-komponentti.
+*/
 export default function Navi() {
   return (
     <>
@@ -25,6 +31,10 @@ export default function Navi() {
   );
 }
 
+/**
+LoggedNavLinks-komponentti näyttää erilaiset navigointilinkit käyttäjän kirjautumisen perusteella.
+@returns {JSX.Element} LoggedNavLinks-komponentti.
+*/
 function LoggedNavLinks() {
   const location = useLocation();
   return (
@@ -40,6 +50,10 @@ function LoggedNavLinks() {
   );
 }
 
+/**
+LogButton-komponentti näyttää joko "Kirjaudu sisään" tai "Kirjaudu ulos" -linkin käyttäjän kirjautumistilan perusteella.
+@returns {JSX.Element} LogButton-komponentti.
+*/
 function LogButton() {
   const { isLogged, setLogged } = useContext(AuthContext);
   const history = useHistory();

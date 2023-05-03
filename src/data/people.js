@@ -1,3 +1,14 @@
+/**
+ * Tiedosto sisältää hallituksen, isännöintitoimiston ja huoltoliikkeen tiedot.
+ * @module contactData
+ * @component
+ */
+
+/**
+ * Hallituksen jäsenten tiedot.
+ * @type {Array<{id: number, name: string, role: string, email: string, phone: string, image: string}>}
+ */
+
 export const hallitus = [
   {
     id: 1,

@@ -1,7 +1,6 @@
 import cors from 'cors';
 import express from 'express';
 import mysql from 'mysql';
-// import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ENDPOINTS, API_PATH } from '../constants/api.mjs';

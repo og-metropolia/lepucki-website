@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: pages/Etusivu.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css" />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: pages/Etusivu.jsx</h1>
+
+      <section>
+        <article>
+          <pre
+            class="prettyprint source linenums"><code>import React from 'react';
+import './etusivu.css';
+
+/**
+ * Etusivu-komponentti luo sivuston etusivun, joka sisältää tietoa taloyhtiöstä,
+ * asumisen palveluista ja ympäröivästä alueesta.
+ *
+ * Komponentti käyttää Reactin fragmenttia (&lt;>) usean elementin ryhmittämiseen.
+ * Sisältö koostuu otsikoista, tekstikappaleista ja kuvista, jotka on järjestetty
+ * etusivu-container- ja etusivu-content-luokkien avulla.
+ *
+ * Etusivu on yksi sivuston "sivuista" (pages) ja se voi olla osa monisivuista
+ * sovellusta tai yksittäinen sivu staattisessa verkkosivustossa.
+ *
+@component
+@returns {JSX.Element} Etusivu-komponentti.
+*/
+
+export default function Etusivu() {
+  return (
+    &lt;>
+      &lt;h1>Tervetuloa Lepuckiin!&lt;/h1>
+      &lt;div className="etusivu-container">
+        &lt;div className="etusivu-content">
+          &lt;h2>Yhteisöllistä asumista Leppävaarassa&lt;/h2>
+          &lt;p>
+            Lepucki tarjoaa asukkailleen monipuolista ja viihtyisää asumista
+            modernissa ympäristössä. Taloyhtiössämme on paljon kivaa tekemistä
+            ja nähtävää, joten asukkaidemme ei tarvitse koskaan tylsistyä.
+          &lt;/p>
+          &lt;p>
+            Haluatko aloittaa aamusi energisesti? Lepuckin kuntosalilla voit
+            treenata omalla tahdillasi ja pitää huolta hyvinvoinnistasi.
+            Kuntosali on aina auki ja varustettu laadukkailla laitteilla, joten
+            voit nauttia treenaamisesta milloin tahansa.
+          &lt;/p>
+          &lt;p>
+            Kaipaatko yhteisöllisyyttä? Lepuckin monitoimitila on täydellinen
+            paikka tavata naapureita ja järjestää yhteisiä tapahtumia. Voit
+            esimerkiksi järjestää elokuvailtoja tai peli-iltoja ystäviesi
+            kanssa.
+          &lt;/p>
+          &lt;p>
+            Lepucki tarjoaa asukkailleen myös monia muita palveluita, kuten
+            autopaikkoja, lasten leikkipaikkoja ja pyörävarastoja. Tule
+            tutustumaan Lepuckiin ja nauti upeasta asumisesta Leppävaarassa!
+          &lt;/p>
+          &lt;p>
+            Lepucki sijaitsee erinomaisella paikalla Leppävaarassa, sillä
+            taloyhtiön läheisyydessä on sekä bussi- että juna-asemat, jotka
+            tarjoavat kätevän tavan liikkua paikasta toiseen. Junayhteyksien
+            avulla pääset helposti Helsingin keskustaan ja muihin lähialueisiin,
+            kun taas bussiyhteydet tuovat lisämukavuutta päivittäiseen
+            liikkumiseen. Alueella on myös hyvät pyöräilyreitit ja kävelytiet,
+            joten liikkuminen onnistuu monin eri tavoin ja helposti.
+          &lt;/p>
+        &lt;/div>
+        &lt;img
+          className="frontpage-image"
+          src="https://media.kodinkuvat.fi/cdn-cgi/image/width=1440,quality=100/images/kDkYzK2Ze9PtpFrbinoHIYrf23hQoxxPLriTX9LO.jpg"
+          alt="Aurinkoinen Leppävaarankatu 23."
+        />
+      &lt;/div>
+      &lt;div className="etusivu-container">
+        &lt;img
+          className="frontpage-image"
+          src="https://c1.staticflickr.com/5/4424/36362397355_62c51c217f_b.jpg"
+          alt="Panorama Leppävaaran urheilupuistosta."
+        />
+        &lt;div className="etusivu-content">
+          &lt;h2>Urheilu ja Liikkuminen&lt;/h2>
+          &lt;p>
+            Leppävaaran urheilupuisto on monipuolinen liikuntakeskus Espoon
+            Leppävaarassa. Urheilupuistossa on erilaisia
+            liikuntamahdollisuuksia, kuten kuntorata, juoksurata, jalkapallo- ja
+            pesäpallokentät, sekä sisä- ja ulkoliikuntapaikkoja. Alueella on
+            myös uimahalli ja jäähalli.
+          &lt;/p>
+          &lt;p>
+            Lisäksi Leppävaaran urheilupuiston yhteydessä sijaitsee Espoonlahden
+            ulkoilualue, joka tarjoaa hyvät mahdollisuudet erilaisiin
+            ulkoiluaktiviteetteihin. Alueella on useita erilaisia kävely- ja
+            pyöräilyreittejä, joita voi käyttää vuoden ympäri. Talvella
+            Espoonlahdessa on hiihtolatuja, joita pitkin voi hiihtää kauniissa
+            talvisessa maisemassa.
+          &lt;/p>
+          &lt;p>
+            Lisäksi Leppävaaran urheilupuistosta on hyvät yhteydet muihin
+            ulkoilualueisiin, kuten Nuuksion kansallispuistoon, joka sijaitsee
+            noin 20 kilometrin päässä Leppävaarasta. Nuuksiossa on lukuisia
+            patikointi- ja pyöräilyreittejä, jotka sopivat eri tasoisille
+            ulkoilijoille.
+          &lt;/p>
+        &lt;/div>
+      &lt;/div>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-contactData.html">contactData</a></li>
+      </ul>
+      <h3>Global</h3>
+      <ul>
+        <li><a href="global.html#AuthContext">AuthContext</a></li>
+        <li><a href="global.html#LogButton">LogButton</a></li>
+        <li><a href="global.html#LoggedNavLinks">LoggedNavLinks</a></li>
+        <li><a href="global.html#People">People</a></li>
+        <li><a href="global.html#PrivateRoute">PrivateRoute</a></li>
+        <li><a href="global.html#ajanvaraus">ajanvaraus</a></li>
+        <li><a href="global.html#fetchBookings">fetchBookings</a></li>
+        <li>
+          <a href="global.html#updateApartmentNumber">updateApartmentNumber</a>
+        </li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03
+      2023 16:51:38 GMT+0300 (Eastern European Summer Time)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

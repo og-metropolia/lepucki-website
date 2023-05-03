@@ -1,5 +1,11 @@
+/**
+Sovelluksen pääkomponentti, joka määrittelee reitit ja sisältää
+kaikki muut komponentit, kuten navigaation ja jalanjäljen.
+@component
+@returns {JSX.Element} Sovelluksen pääkomponentti.
+*/
+
 import './App.css';
-// import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import path from './constants/routes.mjs';
 
@@ -8,7 +14,6 @@ import Login from './pages/Login';
 import Navi from './components/Navi';
 import Footer from './components/Footer';
 import { AuthProvider } from './auth/AuthContext';
-// import PrivateRoute from './components/PrivateRoute';
 
 // pages
 import Home from './pages/Home';

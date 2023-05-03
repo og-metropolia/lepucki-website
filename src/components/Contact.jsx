@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import './contact.css';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
 
+/**
+ * YhteydenottoFormi-komponentti luo yhteydenottolomakkeen, jossa käyttäjä voi syöttää nimensä,
+ * sähköpostiosoitteensa ja viestinsä.
+ *
+ * Komponentti käyttää tilaa (useState) nimen, sähköpostin ja viestin tallentamiseen.
+ *
+ * handleSubmit-funktio käsittelee lomakkeen lähetystä. Se estää oletustoiminnan,
+ * lähettää syötetyt tiedot palvelimelle ja näyttää ilmoituksen onnistumisesta tai epäonnistumisesta.
+ *
+ * @component
+ * @returns {JSX.Element} YhteydenottoFormi-komponentti.
+ */
+
 export default function YhteydenottoFormi() {
   const [nimi, setNimi] = useState('');
   const [email, setEmail] = useState('');

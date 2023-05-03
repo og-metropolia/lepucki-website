@@ -2,6 +2,12 @@ import React from 'react';
 import logo from '../assets/logo.png';
 import './footer.css';
 
+/**
+ * Footer komponentti nettisivulle.
+ * @component
+ * @returns {JSX.Element} Footer-komponentti.
+ */
+
 export default function Footer() {
   return (
     <footer className="footer">

@@ -1,3 +1,12 @@
+/**
+ *
+ * LaundryBooking-komponentti, joka luo interaktiivisen grid-valikon
+ * ja mahdollistaa pyykkituvan varaamisen käyttäjille eri aikaväleillä.
+ * @component
+ * @returns {JSX.Element} LaundryBooking-komponentti, joka sisältää varauslogiikan
+ * ja käyttöliittymän.
+ */
+
 import './booking.css';
 import React, { useState, useEffect } from 'react';
 import { BASE_URL, ENDPOINTS } from '../constants/api.mjs';
@@ -9,7 +18,11 @@ const eiValittu = 'kellonaikaButton eivalittu';
 
 export default function SaunaBooking() {
   const [aikavali, setAikavali] = useState([]);
-
+  /**
+   * Funktio, joka hakee viikon ensimmäisen päivän.
+   *
+   * @returns {Date} Viikon ensimmäinen päivä.
+   */
   const getWeeksFirstDay = () => {
     const currentDate = new Date();
     const firstDayOfWeek = new Date(
@@ -23,7 +36,11 @@ export default function SaunaBooking() {
   };
 
   const [currentWeek] = useState(getWeeksFirstDay());
-
+  /**
+   * Päivätaulukko, joka sisältää viikonpäivät.
+   *
+   * @type {Array<string>}
+   */
   const days = [
     'Maanantai',
     'Tiistai',
@@ -33,7 +50,11 @@ export default function SaunaBooking() {
     'Lauantai',
     'Sunnuntai',
   ];
-
+  /**
+   * Päivämäärätiedot taulukossa, joka sisältää päivän ja viikonpäivän.
+   *
+   * @type {Array<JSX.Element>}
+   */
   const dateBoxes = days.map((day, index) => {
     const date = new Date(
       currentWeek.getTime() + 60 * 60 * 24 * index * 1000
@@ -46,6 +67,11 @@ export default function SaunaBooking() {
     );
   });
 
+  /**
+   * Funktio, joka hakee pyykkituvan varaukset tietokannasta.
+   *
+   * @returns {Array} Pyykkituvan varaukset.
+   */
   async function kellonAika() {
     const aikavali = [];
 
