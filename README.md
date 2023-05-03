@@ -102,7 +102,7 @@ Example Response
 
 #### `GET users/{username}`
 
-Example Responsess
+Example Responses
 
 ```json
 {
